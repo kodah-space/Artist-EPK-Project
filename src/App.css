@@ -1,42 +1,62 @@
+@font-face {
+  font-family: "Unbounded-ExtraLight";
+  src: local("Unbounded-ExtraLight"),
+    url(./fonts/Unbounded-ExtraLight.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Unbounded-Light";
+  src: local("Unbounded-Light"),
+    url(./fonts/Unbounded-Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Unbounded-Medium";
+  src: local("Unbounded-Medium"),
+    url(./fonts/Unbounded-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Unbounded-Regular";
+  src: local("Unbounded-Regular"),
+    url(./fonts/Unbounded-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Unbounded-Bold";
+  src: local("Unbounded-Bold"),
+    url(./fonts/Unbounded-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Unbounded-Black";
+  src: local("Unbounded-Black"),
+    url(./fonts/Unbounded-Black.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Linux-Libertine";
+  src: local("Linux-Libertine"),
+    url(./fonts/LinLibertine_R.ttf) format("truetype");
+}
+
 #root {
+  font-family: Unbounded-Light;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.logo-line {
+  font-family: Unbounded-Medium;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.test-text {
+  color: #26c281;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.test-text-two {
+  font-family: Linux-Libertine;
+  font-size: 20px;
 }
