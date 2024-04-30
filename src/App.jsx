@@ -15,6 +15,16 @@ function App() {
   return (
     <>
       <div>
+
+        <h1 className="logo-line">mink</h1>
+        <h1>Just Testing</h1>
+        <p className="test-text">
+          adof powaekr poksdapfo kwaeortjk apsokpojadksf
+        </p>
+        <p className="test-text-two">
+          adof powaekr poksdapfo kwaeortjk apsokpojadksf
+        </p>
+
         <Link to="/"> Go to Home Page </Link>
         <br />
         <Link to="/contact"> Go to Contact Page </Link>
