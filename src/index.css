@@ -1,9 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
-:root {
+@layer components {
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+}
+
+#root {
   font-family: Unbounded-Light;
-  line-height: 1.5;
-  font-weight: 400;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo-line {
+  font-family: Unbounded-Medium;
+}
+
+.test-text {
+  color: #26c281;
+}
+
+.test-text-two {
+  font-family: Linux-Libertine;
+  font-size: 20px;
 }
