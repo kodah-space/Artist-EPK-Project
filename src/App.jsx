@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import HomePage from "./pages/homePage/HomePage";
+import ContactPage from "./pages/contactPage/ContactPage";
+import AboutPage from "./pages/aboutPage/AboutPage";
+import Artists from "./components/artists/Artists";
+import ArtistPage from "./pages/artistPage/ArtistPage";
+import CreateArtistPage from "./pages/createArtistPage/CreateArtistPage";
+import EditArtistPage from "./pages/editArtistPage/EditArtistPage";
+import DeleteArtist from "./components/deleteArtist/DeleteArtist";
+import ArtistMediaPage from "./pages/artistMediaPage/ArtistMediaPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+
+        <h1 className="logo-line">mink</h1>
+        <h1>Just Testing</h1>
+        <p className="test-text">
+          adof powaekr poksdapfo kwaeortjk apsokpojadksf
         </p>
+        <p className="test-text-two">
+          adof powaekr poksdapfo kwaeortjk apsokpojadksf
+        </p>
+
+        <Link to="/"> Go to Home Page </Link>
+        <br />
+        <Link to="/contact"> Go to Contact Page </Link>
+        <br />
+        <Link to="/about"> Go to AboutPage </Link>
+        <br />
+        <Link to="/artists"> Go to Artists </Link>
+        <br />
+        <Link to="/artists/1"> Go to one Artist Page </Link>
+        <br />
+        <Link to="/artists/create"> Go to Create Artist Page</Link>
+        <br />
+        <Link to="/artists/media/1"> Go to Create Artist Page</Link>
+
+        <EditArtistPage />
+        <DeleteArtist />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/artists" element={<Artists />} />
+          <Route path="/artists/:artistID" element={<ArtistPage />} />
+          <Route path="/artists/create" element={<CreateArtistPage />} />
+          <Route
+            path="/artists/media/:artistID"
+            element={<ArtistMediaPage />}
+          />
+        </Routes>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
