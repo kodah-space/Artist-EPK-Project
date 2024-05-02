@@ -39,24 +39,3 @@
   src: local("Linux-Libertine"),
     url(./fonts/LinLibertine_R.ttf) format("truetype");
 }
-
-#root {
-  font-family: Unbounded-Light;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo-line {
-  font-family: Unbounded-Medium;
-}
-
-.test-text {
-  color: #26c281;
-}
-
-.test-text-two {
-  font-family: Linux-Libertine;
-  font-size: 20px;
-}
