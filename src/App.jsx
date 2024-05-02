@@ -10,12 +10,22 @@ import CreateArtistPage from "./pages/createArtistPage/CreateArtistPage";
 import EditArtistPage from "./pages/editArtistPage/EditArtistPage";
 import DeleteArtist from "./components/deleteArtist/DeleteArtist";
 import ArtistMediaPage from "./pages/artistMediaPage/ArtistMediaPage";
+import userServices from "./services/UserServices";
+import { useEffect } from "react";
 
 function App() {
+  // useEffect(() => {
+  //   userServices
+  //     .createNewUser({
+  //       ArtistName: "zzzzzzzzzz",
+  //       bio: "zzzzzzzzzzz",
+  //     })
+  //     .then((resp) => console.log(resp.data));
+  // }, []);
+
   return (
     <>
       <div>
-
         <h1 className="logo-line">mink</h1>
         <h1>Just Testing</h1>
         <p className="test-text">
