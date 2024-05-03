@@ -15,6 +15,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import userServices from "./services/UserServices";
 import { useEffect } from "react";
+import SoundCloud from "./components/mediacomponents/SoundCloud.jsx";
+import Youtube from "./components/mediacomponents/Youtube.jsx";
+import Spotify from "./components/mediacomponents/Spotify.jsx";
 
 function App() {
   // useEffect(() => {
@@ -29,6 +32,9 @@ function App() {
   return (
     <>
       <Navbar />
+      <SoundCloud />
+      <Youtube />
+      <Spotify />
       <div className="p-4 mr-1 ml-1">
         <p className="text-xl text-[#26C281] md:px-20">
           Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
