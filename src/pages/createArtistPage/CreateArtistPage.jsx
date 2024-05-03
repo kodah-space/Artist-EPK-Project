@@ -35,7 +35,7 @@ function CreateArtistPage() {
     setSocialsArr(updatedSocials);
   };
 
-  const options = ["Instagram", "Youtube", "Spotify", "tiktok"];
+  const optionsSocial = ["Instagram", "Youtube", "Spotify", "tiktok"];
   const handleSocialSelection = (e) => {
     setSelectedSocial(e.target.value);
   };
@@ -69,20 +69,36 @@ function CreateArtistPage() {
 
     userServices
       .createNewUser({
-        ArtistName: artistName,
+        artistName: artistName,
+        shoutout: shoutout,
         bio: bio,
         type: type,
+        imageUrl: image,
+        location: location,
+        genre: genre,
         socials: socialsArr,
       })
-      .then((resp) => console.log(resp.data));
+      .then((resp) => {
+        return userServices.postMediaByArtistID({
+          artistId: resp.data.id,
+          mediaType: selectedMedia,
+          mediaURL: mediaArr,
+        });
+      })
+      .then((resp) => console.log(resp));
 
     //reset form fields
+    setImage("");
     setArtistName("");
     setBio("");
     setLocation("");
     setType("");
-    setSocials("");
-    setSocials([{ id: "", type: "", value: "" }]);
+    setSelectedSocial("");
+    setSocialsArr([{ type: "", value: "" }]);
+    setShoutout("");
+    setGenre("");
+    setSelectedMedia("");
+    setMediaArr([{ type: "", value: "" }]);
 
     //Redirect to another page??
     //navigate("/ProductList");
@@ -159,7 +175,7 @@ function CreateArtistPage() {
                     value={selectedSocial}
                     onChange={handleSocialSelection}
                   >
-                    {options.map((option, optionIndex) => (
+                    {optionsSocial.map((option, optionIndex) => (
                       <option key={optionIndex} value={option}>
                         {option}
                       </option>
@@ -167,7 +183,7 @@ function CreateArtistPage() {
                   </select>
                   <input
                     name={social.value}
-                    type="text"
+                    type="url"
                     placeholder="Enter Social Network"
                     key={index}
                     value={social.value}
@@ -221,7 +237,7 @@ function CreateArtistPage() {
                   </select>
                   <input
                     name={media.value}
-                    type="text"
+                    type="url"
                     placeholder="Enter Media"
                     key={mediaIndex}
                     value={media.value}
