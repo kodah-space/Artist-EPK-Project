@@ -3,12 +3,14 @@ import React from "react";
 export default function Footer() {
   return (
     <footer className="py-3 fixed bottom-0 w-full bg-white">
-      <div className="max-w-screen-xl mx-auto flex justify-center items-center">
+      <div className="max-w-screen-xl flex justify-center items-center">
         <span className="text-xs text-black flex items-center">
           <span>© 2024</span>
           <span className="px-2"> • </span>
           <a
             href="https://github.com/kodah-space/Artist-EPK-Project"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-gray-600 hover:text-[#26C281] flex items-center"
           >
             <svg
