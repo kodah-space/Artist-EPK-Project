@@ -15,6 +15,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import userServices from "./services/UserServices";
 import { useEffect } from "react";
+import SoundCloud from "./components/mediacomponents/SoundCloud.jsx";
+import Youtube from "./components/mediacomponents/Youtube.jsx";
+import Spotify from "./components/mediacomponents/Spotify.jsx";
 
 function App() {
   // useEffect(() => {
@@ -29,16 +32,22 @@ function App() {
   return (
     <>
       <Navbar />
+
       <div>
+]
+      <SoundCloud />
+      <Youtube />
+      <Spotify />
+
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/artists" element={<Artists />} />
-          <Route path="/artists/:artistID" element={<ArtistPage />} />
+          <Route path="/artist/:artistId" element={<ArtistPage />} />
           <Route path="/artists/create" element={<CreateArtistPage />} />
           <Route
-            path="/artists/media/:artistID"
+            path="/artists/media/:artistId"
             element={<ArtistMediaPage />}
           />
         </Routes>
