@@ -6,15 +6,22 @@ function CreateArtistPage() {
   const [image, setImage] = useState("");
   const [artistName, setArtistName] = useState("");
   const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
   const [type, setType] = useState("");
   const [selectedSocial, setSelectedSocial] = useState("");
   const [socialsArr, setSocialsArr] = useState([{ value: "" }]);
+  const [shoutout, setShoutout] = useState("");
+  const [genre, setGenre] = useState("");
+  const [selectedMedia, setSelectedMedia] = useState("");
+  const [mediaArr, setMediaArr] = useState([{ value: "" }]);
 
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
   const handleBio = (e) => setBio(e.target.value);
+  const handleLocation = (e) => setLocation(e.target.value);
   const handleType = (e) => setType(e.target.value);
 
+  //Handle social Network
   const addSocial = () => {
     setSocialsArr([...socialsArr, { value: "" }]);
   };
@@ -28,9 +35,32 @@ function CreateArtistPage() {
     setSocialsArr(updatedSocials);
   };
 
-  const options = ["Instagram", "Facebook", "Cloud"];
+  const options = ["Instagram", "Youtube", "Spotify", "tiktok"];
   const handleSocialSelection = (e) => {
     setSelectedSocial(e.target.value);
+  };
+
+  const handleShoutout = (e) => setShoutout(e.target.value);
+  const handleGenre = (e) => setGenre(e.target.value);
+  const handleMedia = (e) => setMedia(e.target.value);
+
+  //Handle media
+  const addMedia = () => {
+    setMediaArr([...mediaArr, { value: "" }]);
+  };
+
+  const handleMediaChange = (e, i) => {
+    const updatedMedia = [...mediaArr];
+    updatedMedia[i] = {
+      ...updatedMedia[i],
+      value: e.target.value,
+    };
+    setMediaArr(updatedMedia);
+  };
+
+  const optionsMedia = ["Youtube", "Soundcloud", "Spotify"];
+  const handleMediaSelection = (e) => {
+    setSelectedMedia(e.target.value);
   };
 
   //submit the new form
@@ -49,6 +79,7 @@ function CreateArtistPage() {
     //reset form fields
     setArtistName("");
     setBio("");
+    setLocation("");
     setType("");
     setSocials("");
     setSocials([{ id: "", type: "", value: "" }]);
@@ -96,12 +127,24 @@ function CreateArtistPage() {
           </label>
           <br />
           <label>
+            Location:
+            <input
+              name="location"
+              type="text"
+              placeholder="Enter Location"
+              value={location}
+              onChange={handleLocation}
+            />
+          </label>
+          <br />
+          <label>
             Type:
             <input
               name="type"
               type="text"
               placeholder="Enter Type"
-              value={type}
+              // value={type}
+              value={`artist`}
               onChange={handleType}
             />
           </label>
@@ -138,8 +181,61 @@ function CreateArtistPage() {
             </button>
           </label>
           <br />
+          <label>
+            Shoutout:
+            <input
+              name="shoutout"
+              type="text"
+              placeholder="Enter shoutout"
+              value={shoutout}
+              onChange={handleShoutout}
+            />
+          </label>
+          <br />
+          <label>
+            Genre:
+            <input
+              name="genre"
+              type="text"
+              placeholder="Enter genre"
+              value={genre}
+              onChange={handleGenre}
+            />
+          </label>
+          <br />
+          <label>
+            Add your Media:
+            {mediaArr.map((media, mediaIndex) => {
+              return (
+                <div>
+                  <select
+                    id={`datalist-${mediaIndex}`}
+                    value={selectedMedia}
+                    onChange={handleMediaSelection}
+                  >
+                    {optionsMedia.map((option, optionIndex) => (
+                      <option key={optionIndex} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    name={media.value}
+                    type="text"
+                    placeholder="Enter Media"
+                    key={mediaIndex}
+                    value={media.value}
+                    onChange={(e) => handleMediaChange(e, mediaIndex)}
+                  />
+                </div>
+              );
+            })}
+            <button type="button" onClick={addMedia}>
+              +
+            </button>
+          </label>
+          <br />
         </div>
-        {/* <button type="submit" onClick={handleClick}> */}
         <button type="submit">Create New Artist</button>
       </form>
     </div>
