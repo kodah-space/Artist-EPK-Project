@@ -12,12 +12,26 @@ import EditArtistPage from "./pages/editArtistPage/EditArtistPage";
 import DeleteArtist from "./components/artists/DeleteArtist.jsx";
 import ArtistMediaPage from "./pages/artistMediaPage/ArtistMediaPage";
 import Navbar from "./components/Navbar";
+import userServices from "./services/UserServices";
+import { useEffect } from "react";
 
 function App() {
+  // useEffect(() => {
+  //   userServices
+  //     .createNewUser({
+  //       ArtistName: "zzzzzzzzzz",
+  //       bio: "zzzzzzzzzzz",
+  //     })
+  //     .then((resp) => console.log(resp.data));
+  // }, []);
+
   return (
     <>
       <Navbar />
       <div>
+
+        <h1 className="logo-line">mink</h1>
+        <h1>Just Testing</h1>
         <p className="test-text">
           Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
           Neogale and Mustela and part of the family Mustelidae, which also
