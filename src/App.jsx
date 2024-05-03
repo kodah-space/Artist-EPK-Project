@@ -29,37 +29,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="p-4 mr-1 ml-1">
-        <p className="text-xl text-[#26C281] md:px-20">
-          Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
-          Neogale and Mustela and part of the family Mustelidae, which also
-          includes weasels, otters, and ferrets.
-        </p>
-        <button className="btn-primary">some button</button>
-        <button className="btn-primary-green-bg">Some other Button</button>
-        <p className="test-text-two">
-          Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
-          Neogale and Mustela and part of the family Mustelidae, which also
-          includes weasels, otters, and ferrets.
-        </p>
-        <h2 className="h2">Headline Two</h2>
-        <Link to="/"> Go to Home Page </Link>
-        <br />
-        <Link to="/contact"> Go to Contact Page </Link>
-        <br />
-        <Link to="/about"> Go to AboutPage </Link>
-        <br />
-        <Link to="/artists"> Go to Artists </Link>
-        <br />
-        <Link to="/artists/1"> Go to one Artist Page </Link>
-        <br />
-        <Link to="/artists/create"> Go to Create Artist Page</Link>
-        <br />
-        <Link to="/artists/media/1"> Go to Create Artist Page</Link>
-
-        <EditArtistPage />
-        <DeleteArtist />
-
+      <div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactPage />} />

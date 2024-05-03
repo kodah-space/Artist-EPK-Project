@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav className="p-4">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto padding-bottom0 pb-2">
+      <div class="max-w-screen-xl md:px-5 flex flex-wrap items-center justify-between mx-auto padding-bottom0 md:pb-2">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <span class="self-center text-3xl font-['Unbounded-Medium'] whitespace-nowrap">
             mink
@@ -38,7 +38,7 @@ export default function Navbar() {
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
+              strokeWidth="2"
               d="M1 1h15M1 7h15M1 13h15"
             />
           </svg>
@@ -53,7 +53,7 @@ export default function Navbar() {
             <li>
               <a
                 href="/about"
-                class="block py-1 px-0 text-right text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0"
+                class="block py-1 px-0 text-right text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] hover:underline md:p-0 md:m-0"
               >
                 About
               </a>
@@ -61,7 +61,7 @@ export default function Navbar() {
             <li>
               <a
                 href="/contact"
-                class="block py-1 px-0 text-right text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0"
+                class="block py-1 px-0 text-right text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] hover:underline md:p-0"
               >
                 Contact
               </a>
@@ -69,7 +69,7 @@ export default function Navbar() {
             <li>
               <a
                 href="/artists/create"
-                class="block py-1 px-0 text-right text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0"
+                class="block py-1 px-0 text-right text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] hover:underline md:p-0"
               >
                 Create Profile
               </a>
