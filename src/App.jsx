@@ -71,10 +71,10 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/artists" element={<Artists />} />
-          <Route path="/artists/:artistID" element={<ArtistPage />} />
+          <Route path="/artist/:artistId" element={<ArtistPage />} />
           <Route path="/artists/create" element={<CreateArtistPage />} />
           <Route
-            path="/artists/media/:artistID"
+            path="/artists/media/:artistId"
             element={<ArtistMediaPage />}
           />
         </Routes>
