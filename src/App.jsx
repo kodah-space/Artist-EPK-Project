@@ -12,8 +12,12 @@ import EditArtistPage from "./pages/editArtistPage/EditArtistPage";
 import DeleteArtist from "./components/artists/DeleteArtist.jsx";
 import ArtistMediaPage from "./pages/artistMediaPage/ArtistMediaPage";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import userServices from "./services/UserServices";
 import { useEffect } from "react";
+import SoundCloud from "./components/mediacomponents/SoundCloud.jsx";
+import Youtube from "./components/mediacomponents/Youtube.jsx";
+import Spotify from "./components/mediacomponents/Spotify.jsx";
 
 function App() {
   // useEffect(() => {
@@ -28,21 +32,23 @@ function App() {
   return (
     <>
       <Navbar />
-      <div>
-
-        <h1 className="logo-line">mink</h1>
-        <h1>Just Testing</h1>
-        <p className="test-text">
+      <SoundCloud />
+      <Youtube />
+      <Spotify />
+      <div className="p-4 mr-1 ml-1">
+        <p className="text-xl text-[#26C281] md:px-20">
           Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
           Neogale and Mustela and part of the family Mustelidae, which also
           includes weasels, otters, and ferrets.
         </p>
+        <button className="btn-primary">some button</button>
+        <button className="btn-primary-green-bg">Some other Button</button>
         <p className="test-text-two">
           Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
           Neogale and Mustela and part of the family Mustelidae, which also
           includes weasels, otters, and ferrets.
         </p>
-
+        <h2 className="h2">Headline Two</h2>
         <Link to="/"> Go to Home Page </Link>
         <br />
         <Link to="/contact"> Go to Contact Page </Link>
@@ -73,6 +79,7 @@ function App() {
           />
         </Routes>
       </div>
+      <Footer />
     </>
   );
 }
