@@ -3,6 +3,9 @@ import { useState } from "react";
 import userServices from "../../services/UserServices";
 
 function CreateArtistPage() {
+  const [bioErrorMessage, setBioErrorMessage] = useState("");
+  const [shoutoutErrorMessage, setShoutoutErrorMessage] = useState("");
+
   const [image, setImage] = useState("");
   const [artistName, setArtistName] = useState("");
   const [bio, setBio] = useState("");
@@ -17,7 +20,17 @@ function CreateArtistPage() {
 
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
-  const handleBio = (e) => setBio(e.target.value);
+  // const handleBio = (e) => setBio(e.target.value);
+  const handleBio = (e) => {
+    const valueBio = e.target.value;
+
+    if (valueBio.length <= 1200) {
+      setBio(valueBio);
+      setBioErrorMessage("");
+    } else {
+      setBioErrorMessage("Maximum character limit exceeded (1200 characters)");
+    }
+  };
   const handleLocation = (e) => setLocation(e.target.value);
   const handleType = (e) => setType(e.target.value);
 
@@ -40,7 +53,22 @@ function CreateArtistPage() {
     setSelectedSocial(e.target.value);
   };
 
-  const handleShoutout = (e) => setShoutout(e.target.value);
+  // const handleShoutout = (e) => setShoutout(e.target.value);
+  const handleShoutout = (e) => {
+    const valueShoutout = e.target.value;
+    console.log(`validation of the shoutout: ` + valueShoutout);
+    console.log(`validation lenght: ` + valueShoutout.length);
+
+    if (valueShoutout.length <= 200) {
+      setShoutout(valueShoutout);
+      setShoutoutErrorMessage("");
+    } else {
+      setShoutoutErrorMessage(
+        "Maximum character limit exceeded (200 characters)"
+      );
+    }
+  };
+
   const handleGenre = (e) => setGenre(e.target.value);
   const handleMedia = (e) => setMedia(e.target.value);
 
@@ -139,8 +167,10 @@ function CreateArtistPage() {
               placeholder="Enter Bio"
               value={bio}
               onChange={handleBio}
+              // maxLength={1200}
             />
           </label>
+          {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
           <br />
           <label>
             Location:
@@ -205,8 +235,12 @@ function CreateArtistPage() {
               placeholder="Enter shoutout"
               value={shoutout}
               onChange={handleShoutout}
+              // maxLength={200}
             />
           </label>
+          {shoutoutErrorMessage && (
+            <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
+          )}
           <br />
           <label>
             Genre:
