@@ -1,3 +1,4 @@
+import "./index.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -8,8 +9,9 @@ import Artists from "./components/artists/Artists";
 import ArtistPage from "./pages/artistPage/ArtistPage";
 import CreateArtistPage from "./pages/createArtistPage/CreateArtistPage";
 import EditArtistPage from "./pages/editArtistPage/EditArtistPage";
-import DeleteArtist from "./components/deleteArtist/DeleteArtist";
+import DeleteArtist from "./components/artists/DeleteArtist.jsx";
 import ArtistMediaPage from "./pages/artistMediaPage/ArtistMediaPage";
+import Navbar from "./components/Navbar";
 import userServices from "./services/UserServices";
 import { useEffect } from "react";
 
@@ -25,14 +27,20 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <div>
+
         <h1 className="logo-line">mink</h1>
         <h1>Just Testing</h1>
         <p className="test-text">
-          adof powaekr poksdapfo kwaeortjk apsokpojadksf
+          Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
+          Neogale and Mustela and part of the family Mustelidae, which also
+          includes weasels, otters, and ferrets.
         </p>
         <p className="test-text-two">
-          adof powaekr poksdapfo kwaeortjk apsokpojadksf
+          Mink are dark-colored, semiaquatic, carnivorous mammals of the genera
+          Neogale and Mustela and part of the family Mustelidae, which also
+          includes weasels, otters, and ferrets.
         </p>
 
         <Link to="/"> Go to Home Page </Link>
