@@ -12,15 +12,14 @@ function CreateArtistPage() {
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
   const [selectedSocial, setSelectedSocial] = useState("");
-  const [socialsArr, setSocialsArr] = useState([{ value: "" }]);
+  const [socialsArr, setSocialsArr] = useState([{}]);
   const [shoutout, setShoutout] = useState("");
   const [genre, setGenre] = useState("");
   const [selectedMedia, setSelectedMedia] = useState("");
-  const [mediaArr, setMediaArr] = useState([{ value: "" }]);
+  const [mediaArr, setMediaArr] = useState([{}]);
 
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
-  // const handleBio = (e) => setBio(e.target.value);
   const handleBio = (e) => {
     const valueBio = e.target.value;
 
@@ -36,14 +35,15 @@ function CreateArtistPage() {
 
   //Handle social Network
   const addSocial = () => {
-    setSocialsArr([...socialsArr, { value: "" }]);
+    setSocialsArr([...socialsArr, { [selectedSocial]: "" }]);
+    console.log(`this the selection array` + socialsArr);
   };
 
   const handleSocialChange = (e, i) => {
     const updatedSocials = [...socialsArr];
     updatedSocials[i] = {
       ...updatedSocials[i],
-      value: e.target.value,
+      [selectedSocial]: e.target.value,
     };
     setSocialsArr(updatedSocials);
   };
@@ -53,7 +53,6 @@ function CreateArtistPage() {
     setSelectedSocial(e.target.value);
   };
 
-  // const handleShoutout = (e) => setShoutout(e.target.value);
   const handleShoutout = (e) => {
     const valueShoutout = e.target.value;
     console.log(`validation of the shoutout: ` + valueShoutout);
@@ -74,14 +73,14 @@ function CreateArtistPage() {
 
   //Handle media
   const addMedia = () => {
-    setMediaArr([...mediaArr, { value: "" }]);
+    setMediaArr([...mediaArr, {}]);
   };
 
   const handleMediaChange = (e, i) => {
     const updatedMedia = [...mediaArr];
     updatedMedia[i] = {
       ...updatedMedia[i],
-      value: e.target.value,
+      [selectedMedia]: e.target.value,
     };
     setMediaArr(updatedMedia);
   };
@@ -122,11 +121,11 @@ function CreateArtistPage() {
     setLocation("");
     setType("");
     setSelectedSocial("");
-    setSocialsArr([{ type: "", value: "" }]);
+    setSocialsArr([{}]);
     setShoutout("");
     setGenre("");
     setSelectedMedia("");
-    setMediaArr([{ type: "", value: "" }]);
+    setMediaArr([{}]);
 
     //Redirect to another page??
     //navigate("/ProductList");
@@ -167,7 +166,6 @@ function CreateArtistPage() {
               placeholder="Enter Bio"
               value={bio}
               onChange={handleBio}
-              // maxLength={1200}
             />
           </label>
           {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
@@ -189,14 +187,13 @@ function CreateArtistPage() {
               name="type"
               type="text"
               placeholder="Enter Type"
-              // value={type}
               value={`artist`}
               onChange={handleType}
             />
           </label>
           <br />
           <label>
-            Add yor Socials:
+            Add your Socials:
             {socialsArr.map((social, index) => {
               return (
                 <div>
@@ -212,11 +209,11 @@ function CreateArtistPage() {
                     ))}
                   </select>
                   <input
-                    name={social.value}
+                    name={selectedSocial}
                     type="url"
                     placeholder="Enter Social Network"
                     key={index}
-                    value={social.value}
+                    value={social[selectedSocial] || ""}
                     onChange={(e) => handleSocialChange(e, index)}
                   />
                 </div>
@@ -235,7 +232,6 @@ function CreateArtistPage() {
               placeholder="Enter shoutout"
               value={shoutout}
               onChange={handleShoutout}
-              // maxLength={200}
             />
           </label>
           {shoutoutErrorMessage && (
@@ -270,11 +266,11 @@ function CreateArtistPage() {
                     ))}
                   </select>
                   <input
-                    name={media.value}
+                    name={selectedMedia}
                     type="url"
                     placeholder="Enter Media"
                     key={mediaIndex}
-                    value={media.value}
+                    value={media[selectedMedia] || ""}
                     onChange={(e) => handleMediaChange(e, mediaIndex)}
                   />
                 </div>
