@@ -5,7 +5,25 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    @apply bg-white text-black tracking-wide py-2 px-4 rounded-3xl border border-black hover:text-[#26C281] hover:border-[#26C281] m-2;
+  }
+}
+
+@layer components {
+  .btn-primary-green {
+    @apply bg-white text-[#26C281] tracking-wide py-2 px-4 rounded-3xl border border-[#26C281] hover:text-white hover:bg-[#26C281] m-2;
+  }
+}
+
+@layer components {
+  .btn-primary-green-bg {
+    @apply bg-[#26C281] text-white  tracking-wide py-2 px-4 rounded-3xl border hover:text-[#26C281] hover:bg-white hover:border-[#26C281] m-2;
+  }
+}
+
+@layer components {
+  .h2 {
+    @apply text-black font-[Unbounded-Regular] text-3xl p-2;
   }
 }
 
@@ -13,16 +31,11 @@
   font-family: Unbounded-Light;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
 .logo-line {
   font-family: Unbounded-Medium;
-}
-
-.test-text {
-  color: #26c281;
 }
 
 .test-text-two {
