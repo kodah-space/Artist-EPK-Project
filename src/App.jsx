@@ -34,8 +34,10 @@ function App() {
       <Navbar />
 
       <div>
+
   
         <EditArtistPage />
+
 
         <Routes>
           <Route path="/" element={<HomePage />} />
