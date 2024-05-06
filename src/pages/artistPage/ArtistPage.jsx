@@ -55,11 +55,14 @@ function ArtistPage() {
 
   return (
     <div className="artistPage-container">
-      <h1>Artist Page</h1>
       <h2>{userData.artistName}</h2>
+      <p>↓</p>
       <p>{userData.shoutout}</p>
+      <p>↑</p>
       <img src={userData.imageUrl}></img>
-      <p>{userData.bio}</p>
+      <p className="font-[Linux-Libertine] text-lg p-2.5 md:p-5 ">
+        {userData.bio}
+      </p>
       <li>
         {spotifyMediaList.map((media, index) => {
           return <Spotify url={media.mediaURL} />;
