@@ -34,10 +34,7 @@ function App() {
       <Navbar />
 
       <div>
-
-  
-        <EditArtistPage />
-
+        {/* <EditArtistPage /> */}
 
         <Routes>
           <Route path="/" element={<HomePage />} />
