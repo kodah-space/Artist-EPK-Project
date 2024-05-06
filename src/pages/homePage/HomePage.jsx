@@ -1,6 +1,6 @@
 import React from "react";
 import ArtistMediaPage from "../artistMediaPage/ArtistMediaPage";
-import ArtistCard from "../../components/artists/ArtistCard";
+import Artists from "../../components/artists/Artists";
 
 function HomePage() {
   return (
@@ -12,7 +12,8 @@ function HomePage() {
       </p>
       <button className="btn-primary-green-bg">Create Your Profile</button>
       <h2 classname="text-left pt-10 pb-5">Artists</h2>
-      <ArtistCard />
+
+      <Artists />
     </div>
   );
 }
