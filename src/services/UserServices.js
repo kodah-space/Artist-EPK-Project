@@ -18,6 +18,9 @@ class UserServices {
   deletUserByID(id) {
     return this.api.delete("/users/" + id);
   }
+  getMediaByArtistID(artistId) {
+    return this.api.get("/media?artistId=" + artistId);
+  }
   postMediaByArtistID(reqBody) {
     this.api.post("/media", reqBody);
   }
