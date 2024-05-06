@@ -17,12 +17,13 @@ export default function Artists() {
       })
       .catch((error) => console.error("Failed to fetch data:", error));
   }, []);
+
   console.log(allUsers);
   if (!allUsers) return "loading...";
 
   return (
-    <div className="container my-12 mx-auto px-4 md:px-12">
-      <ul className="flex flex-wrap -mx-1 lg:-mx-4">
+    <div className="container mx-auto px-4 md:px-12">
+      <ul className="flex flex-wrap justify-center my-12">
         {allUsers.map((artist) => {
           return <ArtistCard key={artist.id} artist={artist} />;
         })}
