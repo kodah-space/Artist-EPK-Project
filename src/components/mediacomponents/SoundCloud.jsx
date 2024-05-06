@@ -1,6 +1,6 @@
 import React from "react";
 
-function soundcloud() {
+function soundcloud(url) {
   return (
     <div>
       {" "}
@@ -10,7 +10,7 @@ function soundcloud() {
         scrolling="no"
         frameborder="no"
         allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/daniel-de-boer-246126980/fly-away-1&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false"
+        src={url}
       ></iframe>
     </div>
   );

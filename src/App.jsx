@@ -34,11 +34,6 @@ function App() {
       <Navbar />
 
       <div>
-]
-      <SoundCloud />
-      <Youtube />
-      <Spotify />
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactPage />} />
