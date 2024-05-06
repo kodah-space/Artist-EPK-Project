@@ -11,16 +11,17 @@ function CreateArtistPage() {
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
-  const [selectedSocial, setSelectedSocial] = useState("");
-  const [socialsArr, setSocialsArr] = useState([{ value: "" }]);
+  const optionsSocial = ["Instagram", "Youtube", "Spotify", "tiktok"];
+  const [selectedSocial, setSelectedSocial] = useState(optionsSocial[0]);
+  const [socialsArr, setSocialsArr] = useState([{}]);
   const [shoutout, setShoutout] = useState("");
   const [genre, setGenre] = useState("");
+  const optionsMedia = ["Youtube", "Soundcloud", "Spotify"];
   const [selectedMedia, setSelectedMedia] = useState("");
-  const [mediaArr, setMediaArr] = useState([{ value: "" }]);
+  const [mediaArr, setMediaArr] = useState([{}]);
 
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
-  // const handleBio = (e) => setBio(e.target.value);
   const handleBio = (e) => {
     const valueBio = e.target.value;
 
@@ -36,28 +37,39 @@ function CreateArtistPage() {
 
   //Handle social Network
   const addSocial = () => {
-    setSocialsArr([...socialsArr, { value: "" }]);
+    const newSocial = { [optionsSocial[0]]: "" };
+
+    setSocialsArr([...socialsArr, newSocial]);
+    console.log(`1.addSocial, value of the array: `, socialsArr);
+  };
+
+  const handleSocialSelection = (e, i) => {
+    setSelectedSocial(e.target.value);
+
+    const updatedSocialsArr = [...socialsArr];
+    const updatedObject = { ...updatedSocialsArr[i] };
+    const currentKey = Object.keys(updatedObject)[0];
+
+    delete updatedObject[currentKey];
+    updatedObject[e.target.value] = "";
+    updatedSocialsArr[i] = updatedObject;
+
+    setSocialsArr(updatedSocialsArr);
   };
 
   const handleSocialChange = (e, i) => {
+    console.log(` 3.handleSocialChange : `, socialsArr);
     const updatedSocials = [...socialsArr];
     updatedSocials[i] = {
       ...updatedSocials[i],
-      value: e.target.value,
+      [selectedSocial]: e.target.value,
     };
     setSocialsArr(updatedSocials);
+    console.log(` 4.handleSocialChange : `, socialsArr);
   };
 
-  const optionsSocial = ["Instagram", "Youtube", "Spotify", "tiktok"];
-  const handleSocialSelection = (e) => {
-    setSelectedSocial(e.target.value);
-  };
-
-  // const handleShoutout = (e) => setShoutout(e.target.value);
   const handleShoutout = (e) => {
     const valueShoutout = e.target.value;
-    console.log(`validation of the shoutout: ` + valueShoutout);
-    console.log(`validation lenght: ` + valueShoutout.length);
 
     if (valueShoutout.length <= 200) {
       setShoutout(valueShoutout);
@@ -74,21 +86,32 @@ function CreateArtistPage() {
 
   //Handle media
   const addMedia = () => {
-    setMediaArr([...mediaArr, { value: "" }]);
+    const newMedia = { [optionsMedia[0]]: "" };
+
+    setMediaArr([...mediaArr, newMedia]);
+  };
+
+  const handleMediaSelection = (e) => {
+    setSelectedMedia(e.target.value);
+
+    const updatedMediaArr = [...mediaArr];
+    const updatedObject = { ...updatedMediaArr[i] };
+    const currentKey = Object.keys(updatedObject)[0];
+
+    delete updatedObject[currentKey];
+    updatedObject[e.target.value] = "";
+    updatedMediaArr[i] = updatedObject;
+
+    setSocialsArr(updatedMediaArr);
   };
 
   const handleMediaChange = (e, i) => {
     const updatedMedia = [...mediaArr];
     updatedMedia[i] = {
       ...updatedMedia[i],
-      value: e.target.value,
+      [selectedMedia]: e.target.value,
     };
     setMediaArr(updatedMedia);
-  };
-
-  const optionsMedia = ["Youtube", "Soundcloud", "Spotify"];
-  const handleMediaSelection = (e) => {
-    setSelectedMedia(e.target.value);
   };
 
   //submit the new form
@@ -109,7 +132,7 @@ function CreateArtistPage() {
       .then((resp) => {
         return userServices.postMediaByArtistID({
           artistId: resp.data.id,
-          mediaType: selectedMedia,
+          // mediaType: selectedMedia,
           mediaURL: mediaArr,
         });
       })
@@ -122,14 +145,11 @@ function CreateArtistPage() {
     setLocation("");
     setType("");
     setSelectedSocial("");
-    setSocialsArr([{ type: "", value: "" }]);
+    setSocialsArr([{}]);
     setShoutout("");
     setGenre("");
     setSelectedMedia("");
-    setMediaArr([{ type: "", value: "" }]);
-
-    //Redirect to another page??
-    //navigate("/ProductList");
+    setMediaArr([{}]);
   };
   console.log(socialsArr);
   return (
@@ -167,7 +187,6 @@ function CreateArtistPage() {
               placeholder="Enter Bio"
               value={bio}
               onChange={handleBio}
-              // maxLength={1200}
             />
           </label>
           {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
@@ -189,21 +208,20 @@ function CreateArtistPage() {
               name="type"
               type="text"
               placeholder="Enter Type"
-              // value={type}
               value={`artist`}
               onChange={handleType}
             />
           </label>
           <br />
           <label>
-            Add yor Socials:
+            Add your Socials:
             {socialsArr.map((social, index) => {
               return (
                 <div>
                   <select
                     id={`datalist-${index}`}
-                    value={selectedSocial}
-                    onChange={handleSocialSelection}
+                    value={social.selectedSocial}
+                    onChange={(e) => handleSocialSelection(e, index)}
                   >
                     {optionsSocial.map((option, optionIndex) => (
                       <option key={optionIndex} value={option}>
@@ -212,11 +230,11 @@ function CreateArtistPage() {
                     ))}
                   </select>
                   <input
-                    name={social.value}
+                    name={selectedSocial}
                     type="url"
                     placeholder="Enter Social Network"
                     key={index}
-                    value={social.value}
+                    value={social[selectedSocial] || ""}
                     onChange={(e) => handleSocialChange(e, index)}
                   />
                 </div>
@@ -235,7 +253,6 @@ function CreateArtistPage() {
               placeholder="Enter shoutout"
               value={shoutout}
               onChange={handleShoutout}
-              // maxLength={200}
             />
           </label>
           {shoutoutErrorMessage && (
@@ -260,8 +277,8 @@ function CreateArtistPage() {
                 <div>
                   <select
                     id={`datalist-${mediaIndex}`}
-                    value={selectedMedia}
-                    onChange={handleMediaSelection}
+                    value={media.selectedMedia}
+                    onChange={(e) => handleMediaSelection(e, index)}
                   >
                     {optionsMedia.map((option, optionIndex) => (
                       <option key={optionIndex} value={option}>
@@ -270,11 +287,11 @@ function CreateArtistPage() {
                     ))}
                   </select>
                   <input
-                    name={media.value}
+                    name={selectedMedia}
                     type="url"
                     placeholder="Enter Media"
                     key={mediaIndex}
-                    value={media.value}
+                    value={media[selectedMedia] || ""}
                     onChange={(e) => handleMediaChange(e, mediaIndex)}
                   />
                 </div>

@@ -34,9 +34,8 @@ function App() {
       <Navbar />
 
       <div>
-        <SoundCloud />
-        <Youtube />
-        <Spotify />
+  
+        <EditArtistPage />
 
         <Routes>
           <Route path="/" element={<HomePage />} />
