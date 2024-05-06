@@ -8,7 +8,7 @@ function Youtube(media) {
   function convertToEmbedUrl(watchUrl) {
     const videoId = watchUrl.split("v=")[1];
     if (videoId) {
-      return `https://www.youtube.com/embed/${videoId}?si=iBCCwrVIsxCF1V-B`;
+      return `https://www.youtube.com/embed/${videoId}`;
     } else {
       // Handle invalid or unrecognized URL format
       return null;

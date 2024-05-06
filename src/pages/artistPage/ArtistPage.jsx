@@ -60,20 +60,14 @@ function ArtistPage() {
       <p>{userData.shoutout}</p>
       <img src={userData.imageUrl}></img>
       <p>{userData.bio}</p>
-      {/* <li>
+      <li>
         {spotifyMediaList.map((media, index) => {
           return <Spotify url={media.mediaURL} />;
           {
             console.log(media.mediaURL);
           }
         })}
-      </li> */}
-
-      {/* <li>
-        {soundcloudMediaList.map((media, index) => {
-          return <Soundcloud url={media.mediaURL} />;
-        })}
-      </li> */}
+      </li>
 
       <ul>
         {youtubeMediaList.map((media, index) => (
@@ -83,6 +77,12 @@ function ArtistPage() {
           </li>
         ))}
       </ul>
+
+      {/* <li>
+        {soundcloudMediaList.map((media, index) => {
+          return <Soundcloud url={media.mediaURL} />;
+        })}
+      </li> */}
     </div>
   );
 }
