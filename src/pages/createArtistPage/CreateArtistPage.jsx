@@ -21,7 +21,8 @@ function CreateArtistPage() {
   const [selectedSocial, setSelectedSocial] = useState(optionsSocial[0]);
   const [socialsArr, setSocialsArr] = useState([]);
   const [shoutout, setShoutout] = useState("");
-  const [genre, setGenre] = useState("");
+  const [genreInput, setGenreInput] = useState("");
+  const [genres, setGenres] = useState([]);
   const optionsMedia = ["Youtube", "Soundcloud", "Spotify"];
   const [optionsMediaArr, setoptionsMediaArr] = useState([]);
   const [selectedMedia, setSelectedMedia] = useState("");
@@ -46,7 +47,7 @@ function CreateArtistPage() {
 
   const handleLocationSearch = (event) => {
     setQueryLocation(event.target.value);
-    setActive(true);
+    if (!active) setActive(true);
   };
 
   const handleLocationSelect = (suggestion) => {
@@ -110,7 +111,23 @@ function CreateArtistPage() {
     }
   };
 
-  const handleGenre = (e) => setGenre(e.target.value);
+  // Update the controlled input state with the current input value
+  const handleGenreInputChange = (e) => setGenreInput(e.target.value);
+
+  // Add the current input value to the genres list when Enter is pressed
+  const handleGenreKeyDown = (e) => {
+    if (e.key === "Enter" && genreInput.trim()) {
+      e.preventDefault();
+      setGenres((prevGenres) => [...prevGenres, genreInput.trim()]);
+      setGenreInput("");
+    }
+  };
+
+  // Remove a genre from the list
+  const handleRemoveGenre = (index) => {
+    setGenres((prevGenres) => prevGenres.filter((_, i) => i !== index));
+  };
+
   const handleMedia = (e) => setMedia(e.target.value);
 
   //Handle media
@@ -170,7 +187,7 @@ function CreateArtistPage() {
         type: type,
         imageUrl: finalImage,
         location: queryLocation,
-        genre: genre,
+        genres: genres,
         socials: socialsArr,
       })
       .then((resp) => {
@@ -205,7 +222,7 @@ function CreateArtistPage() {
     setSelectedSocial("");
     setSocialsArr([{}]);
     setShoutout("");
-    setGenre("");
+    setGenres("");
     setSelectedMedia("");
     setMediaArr([{}]);
   };
@@ -313,7 +330,35 @@ function CreateArtistPage() {
           </label> */}
           <br />
 
-          <label>
+          <div className="genre-labels">
+            <label>
+              Genres:
+              <input
+                type="text"
+                placeholder="Type and press Enter to add genre"
+                value={genreInput}
+                onChange={handleGenreInputChange}
+                onKeyDown={handleGenreKeyDown}
+              />
+            </label>
+            <ul>
+              {genres.map((g, index) => (
+                <li key={index}>
+                  {g}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveGenre(index)}
+                  >
+                    &times;
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <br />
+            <button type="submit">Submit Genres</button>
+          </div>
+
+          {/* <label>
             Genre:
             <br />
             <input
@@ -323,7 +368,7 @@ function CreateArtistPage() {
               value={genre}
               onChange={handleGenre}
             />
-          </label>
+          </label> */}
           <br />
           <div>
             <label>
