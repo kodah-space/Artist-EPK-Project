@@ -20,6 +20,9 @@ function EditArtistPage() {
 
   useEffect(() => {
     fetchArtistInfo(artistId);
+
+    // console.log(`after fetching my artist: `, artistInfo);
+    console.log(`after fetching social array: `, socialsArr);
   }, [artistId]);
 
   const fetchArtistInfo = (artistId) => {
@@ -29,17 +32,17 @@ function EditArtistPage() {
         setArtistInfo(resp.data);
       })
       .then((resp) => {
+        // const socials = resp.data.socials;
         const socials = resp.data.socials;
-        const socialsArr = Object.values(socials);
-        setSocialsArr(socialsArr);
+        for (const key in socials) {
+          const newSocial = { [key]: socials[key] };
+          setSocialsArr([...socialsArr, newSocial]);
+        }
       })
       .catch((error) => {
         console.error("Error fetching artist information:", error);
       });
   };
-
-  console.log(`after fetching my artist: `, artistInfo);
-  console.log(`after fetching social array: `, socialsArr);
 
   const [bioErrorMessage, setBioErrorMessage] = useState("");
   const [shoutoutErrorMessage, setShoutoutErrorMessage] = useState("");
@@ -179,16 +182,21 @@ function EditArtistPage() {
         <br />
         <label>
           Type:
-          <input type="text" value={artistInfo.type} onChange={handleType} />
+          <input
+            type="text"
+            value={artistInfo.type}
+            onChange={handleType}
+            readOnly
+          />
         </label>
         <br />
         <label>
           Add your Socials:
-          {/* {artistInfo.socialsArr.map((social, index) => {
+          {/* {socialsArr.map((social, index) => {
             return (
               <div key={index}>
                 <select
-                  value={Object.keys(social)[index]}
+                  value={Object.keys(social)}
                   onChange={(e) => handleSocialSelection(e, index)}
                 >
                   {optionsSocial.map((option, optionIndex) => (
@@ -199,12 +207,31 @@ function EditArtistPage() {
                 </select>
                 <input
                   type="url"
-                  value={Object.values(social)[index]}
+                  value={social}
                   onChange={(e) => handleSocialChange(e, index)}
                 />
               </div>
             );
           })} */}
+          {Object.keys(artistInfo.socials).map((socialKey, index) => (
+            <div key={index}>
+              <select
+                value={socialKey}
+                onChange={(e) => handleSocialSelection(e, index)}
+              >
+                {optionsSocial.map((option, optionIndex) => (
+                  <option key={optionIndex} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="url"
+                value={artistInfo.socials[socialKey]} // Access the value using the key
+                onChange={(e) => handleSocialChange(e, index)}
+              />
+            </div>
+          ))}
           <button type="button" onClick={addSocial}>
             +
           </button>

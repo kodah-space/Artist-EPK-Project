@@ -20,6 +20,7 @@ function App() {
       <Navbar />
 
       <div>
+
         {/* <EditArtistPage /> */}
 
         <Routes>
