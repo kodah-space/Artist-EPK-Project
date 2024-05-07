@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import userServices from "../../services/UserServices";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import useLocationSearch from "../../services/UseLocationSearch";
 
 function EditArtistPage() {
   const { artistId } = useParams();
@@ -22,6 +23,10 @@ function EditArtistPage() {
   const [mediaInfo, setMediaInfo] = useState([]);
 
   const [socialsArr, setSocialsArr] = useState([]);
+  // State for location search
+  const [queryLocation, setQueryLocation] = useState("");
+  const { suggestions, clearSuggestions } = useLocationSearch(queryLocation);
+  const [active, setActive] = useState(true);
 
   useEffect(() => {
     fetchArtistInfo(artistId);
@@ -33,6 +38,7 @@ function EditArtistPage() {
       .getUserByID(artistId)
       .then((resp) => {
         setArtistInfo(resp.data);
+        setQueryLocation(resp.data.location);
       })
       .then((resp) => {
         // const socials = resp.data.socials;
@@ -73,17 +79,17 @@ function EditArtistPage() {
 
   //Location methods
 
-  // const handleSearch = (event) => {
-  //   setQueryLocation(event.target.value);
-  //   setActive(true);
-  // };
+  const handleLocationSearch = (event) => {
+    const typedLocation = event.target.value;
+    setQueryLocation(typedLocation);
+    setActive(true);
+  };
 
-  // const handleSelect = (suggestion) => {
-  //   setQueryLocation(suggestion.display_name);
-  //   setActive(false);
-  //   clearSuggestions();
-  // };
-
+  const handleLocationSelect = (suggestion) => {
+    setQueryLocation(suggestion.display_name);
+    setActive(false);
+    clearSuggestions();
+  };
   const handleLocation = (e) => {
     setArtistInfo({ ...artistInfo, location: e.target.value });
   };
@@ -209,10 +215,32 @@ function EditArtistPage() {
           Location:
           <input
             type="text"
+            value={queryLocation}
+            onChange={handleLocationSearch}
+            placeholder="search for location"
+          />
+          {suggestions.length > 0 && queryLocation !== artistInfo.location && (
+            <ul>
+              {suggestions.map((suggestion) => (
+                <li
+                  key={suggestion.place_id}
+                  onClick={() => handleLocationSelect(suggestion)}
+                >
+                  {suggestion.display_name}
+                </li>
+              ))}
+            </ul>
+          )}
+        </label>
+        <br />
+        {/* <label>
+          Location:
+          <input
+            type="text"
             value={artistInfo.location}
             onChange={handleLocation}
           />
-        </label>
+        </label> */}
         <br />
         {/* <label>
           Type:
