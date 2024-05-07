@@ -9,6 +9,8 @@ function CreateArtistPage() {
   const [queryLocation, setQueryLocation] = useState("");
   const [active, setActive] = useState(true);
   const { suggestions, clearSuggestions } = useLocationSearch(queryLocation);
+  const defaultImageUrl =
+    "https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png";
 
   const [image, setImage] = useState("");
   const [artistName, setArtistName] = useState("");
@@ -158,6 +160,7 @@ function CreateArtistPage() {
   //submit the new form
   const handleSubmit = (e) => {
     e.preventDefault();
+    const finalImage = image || defaultImageUrl;
 
     userServices
       .createNewUser({
@@ -165,7 +168,7 @@ function CreateArtistPage() {
         shoutout: shoutout,
         bio: bio,
         type: type,
-        imageUrl: image,
+        imageUrl: finalImage,
         location: queryLocation,
         genre: genre,
         socials: socialsArr,

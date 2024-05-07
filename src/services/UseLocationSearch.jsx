@@ -11,6 +11,7 @@ const useLocationSearch = (query, active) => {
         try {
           const response = await axios.get(apiUrl);
           const seen = new Set();
+          console.log("Fetching locations for:", query);
           const formattedSuggestions = response.data
             .map((item) => {
               const city =
