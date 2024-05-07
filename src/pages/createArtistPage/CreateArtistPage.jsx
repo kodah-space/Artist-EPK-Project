@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import userServices from "../../services/UserServices";
+import useLocationSearch from "../../services/UseLocationSearch";
 
 function CreateArtistPage() {
   const [bioErrorMessage, setBioErrorMessage] = useState("");
   const [shoutoutErrorMessage, setShoutoutErrorMessage] = useState("");
+  const [queryLocation, setQueryLocation] = useState("");
+  const [active, setActive] = useState(true);
+  const { suggestions, clearSuggestions } = useLocationSearch(queryLocation);
 
   const [image, setImage] = useState("");
   const [artistName, setArtistName] = useState("");
@@ -35,6 +39,19 @@ function CreateArtistPage() {
   };
   const handleLocation = (e) => setLocation(e.target.value);
   const handleType = (e) => setType(e.target.value);
+
+  //Location methods
+
+  const handleSearch = (event) => {
+    setQueryLocation(event.target.value);
+    setActive(true);
+  };
+
+  const handleSelect = (suggestion) => {
+    setQueryLocation(suggestion.display_name);
+    setActive(false);
+    clearSuggestions();
+  };
 
   //Handle social Network
   const addSocial = () => {
@@ -149,7 +166,7 @@ function CreateArtistPage() {
         bio: bio,
         type: type,
         imageUrl: image,
-        location: location,
+        location: queryLocation,
         genre: genre,
         socials: socialsArr,
       })
@@ -231,6 +248,27 @@ function CreateArtistPage() {
           {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
           <br />
           <label>
+            <input
+              type="text"
+              value={queryLocation}
+              onChange={handleSearch}
+              placeholder="Search for a location"
+            />
+            {suggestions.length > 0 && (
+              <ul>
+                {suggestions.map((suggestion) => (
+                  <li
+                    key={suggestion.place_id}
+                    onClick={() => handleSelect(suggestion)}
+                  >
+                    {suggestion.display_name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </label>
+          <br />
+          {/* <label>
             Location:
             <input
               name="location"
@@ -239,9 +277,9 @@ function CreateArtistPage() {
               value={location}
               onChange={handleLocation}
             />
-          </label>
+          </label> */}
           <br />
-          <label>
+          {/* <label>
             Type:
             <input
               name="type"
@@ -251,7 +289,7 @@ function CreateArtistPage() {
               onChange={handleType}
               readOnly
             />
-          </label>
+          </label> */}
           <br />
           <label>
             Add your Socials:
