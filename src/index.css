@@ -41,11 +41,19 @@
   padding: 0 0 50px 0;
 }
 
-.logo-line {
-  font-family: Unbounded-Medium;
+.profile-container input,
+textarea {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 2px 4px;
+  width: 100%;
 }
 
-.test-text-two {
-  font-family: Linux-Libertine;
-  font-size: 20px;
+.profile-container input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #26c281;
+  border-radius: 4px;
 }
+
+/* border rounded-sm focus:ring-[#26C281] focus:border-[#26C281]" */
