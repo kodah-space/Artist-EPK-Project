@@ -1,4 +1,4 @@
-# Mink
+# mink
 
 Mink is a platform designed for musicians and music producers to share their work, exchange information, and connect with others in the music community. With Mink, artists can create and edit personal profiles, showcase their media, and collaborate with fellow creatives.
 
