@@ -347,7 +347,7 @@ function CreateArtistPage() {
               readOnly
             />
           </label> */}
-          <div className="py-2.5">
+          {/* <div className="py-2.5">
             <label>
               Genre:
               <br />
@@ -358,9 +358,9 @@ function CreateArtistPage() {
                 value={genre}
                 onChange={handleGenre}
               />
-            </label>
-          </div>
-          <div className="py-2.5">
+            </label> */}
+        </div>
+        <div className="py-2.5">
           <br />
           <div className="genre-labels">
             <label>
@@ -401,7 +401,6 @@ function CreateArtistPage() {
           </label> */}
           <br />
           <div>
-
             <label>
               Add Socials:
               {socialsArr.map((social, index) => {
