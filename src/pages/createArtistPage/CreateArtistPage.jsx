@@ -208,28 +208,32 @@ function CreateArtistPage() {
   };
   console.log(socialsArr);
   console.log(mediaArr);
+
   return (
-    <div className="createArtistPage-container">
-      <p>Insert your changes: </p>
-      <form onSubmit={handleSubmit}>
+    <div className="">
+      <h2>Your Artist Profile </h2>
+      <form onSubmit={handleSubmit} className="text-left p-5">
         <div className="addArtist-labels">
           <label>
             Image:
+            <br />
             <input
               name="image"
               type="url"
-              placeholder="Enter image"
+              placeholder="enter image-URL"
               value={image}
               onChange={handleImage}
+              className=""
             />
           </label>
           <br />
           <label>
-            ArtistName:
+            Name:
+            <br />
             <input
               name="artistName"
               type="text"
-              placeholder="Enter Artist Name"
+              placeholder="enter artist name"
               value={artistName}
               onChange={handleArtistName}
             />
@@ -237,10 +241,11 @@ function CreateArtistPage() {
           <br />
           <label>
             Bio:
+            <br />
             <input
               name="bio"
               type="text"
-              placeholder="Enter Bio"
+              placeholder="enter bio"
               value={bio}
               onChange={handleBio}
             />
@@ -248,11 +253,26 @@ function CreateArtistPage() {
           {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
           <br />
           <label>
+            Shoutout:
+            <input
+              name="shoutout"
+              type="text"
+              placeholder="enter a community shoutout"
+              value={shoutout}
+              onChange={handleShoutout}
+            />
+          </label>
+          {shoutoutErrorMessage && (
+            <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
+          )}
+          <br />
+          <label>
+            Location:
             <input
               type="text"
               value={queryLocation}
               onChange={handleLocationSearch}
-              placeholder="Search for a location"
+              placeholder="search for location"
             />
             {suggestions.length > 0 && (
               <ul>
@@ -267,7 +287,6 @@ function CreateArtistPage() {
               </ul>
             )}
           </label>
-          <br />
           {/* <label>
             Location:
             <input
@@ -278,7 +297,6 @@ function CreateArtistPage() {
               onChange={handleLocation}
             />
           </label> */}
-          <br />
           {/* <label>
             Type:
             <input
@@ -291,8 +309,21 @@ function CreateArtistPage() {
             />
           </label> */}
           <br />
+
           <label>
-            Add your Socials:
+            Genre:
+            <br />
+            <input
+              name="genre"
+              type="text"
+              placeholder="enter genres"
+              value={genre}
+              onChange={handleGenre}
+            />
+          </label>
+          <br />
+          <label>
+            Add Your Socials:
             {socialsArr.map((social, index) => {
               return (
                 <div>
@@ -310,7 +341,7 @@ function CreateArtistPage() {
                   <input
                     name={selectedSocial}
                     type="url"
-                    placeholder="Enter Social Network"
+                    placeholder="enter social network"
                     key={index}
                     value={social[selectedSocial] || ""}
                     onChange={(e) => handleSocialChange(e, index)}
@@ -318,36 +349,13 @@ function CreateArtistPage() {
                 </div>
               );
             })}
+            <br />
             <button type="button" onClick={addSocial}>
-              +
+              select
             </button>
           </label>
           <br />
-          <label>
-            Shoutout:
-            <input
-              name="shoutout"
-              type="text"
-              placeholder="Enter shoutout"
-              value={shoutout}
-              onChange={handleShoutout}
-            />
-          </label>
-          {shoutoutErrorMessage && (
-            <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
-          )}
-          <br />
-          <label>
-            Genre:
-            <input
-              name="genre"
-              type="text"
-              placeholder="Enter genre"
-              value={genre}
-              onChange={handleGenre}
-            />
-          </label>
-          <br />
+
           <label>
             Add your Media:
             {mediaArr.map((media, mediaIndex) => {
@@ -381,8 +389,10 @@ function CreateArtistPage() {
           </label>
           <br />
         </div>
-        <button type="submit">Create New Artist</button>
       </form>
+      <button type="submit" className="btn-primary-green-bg">
+        Submit Profile
+      </button>
     </div>
   );
 }
