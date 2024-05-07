@@ -71,6 +71,19 @@ function EditArtistPage() {
     setArtistInfo({ ...artistInfo, image: e.target.value });
   };
 
+  //Location methods
+
+  // const handleSearch = (event) => {
+  //   setQueryLocation(event.target.value);
+  //   setActive(true);
+  // };
+
+  // const handleSelect = (suggestion) => {
+  //   setQueryLocation(suggestion.display_name);
+  //   setActive(false);
+  //   clearSuggestions();
+  // };
+
   const handleLocation = (e) => {
     setArtistInfo({ ...artistInfo, location: e.target.value });
   };
@@ -201,7 +214,7 @@ function EditArtistPage() {
           />
         </label>
         <br />
-        <label>
+        {/* <label>
           Type:
           <input
             type="text"
@@ -210,7 +223,7 @@ function EditArtistPage() {
             readOnly
           />
         </label>
-        <br />
+        <br /> */}
         <label>
           Add your Socials:
           {Object.keys(artistInfo.socials).map((socialKey, index) => (
