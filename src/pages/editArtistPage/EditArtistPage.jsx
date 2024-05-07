@@ -27,6 +27,9 @@ function EditArtistPage() {
   const [queryLocation, setQueryLocation] = useState("");
   const { suggestions, clearSuggestions } = useLocationSearch(queryLocation);
   const [active, setActive] = useState(true);
+  // state for genre mangement
+  const [genreInput, setGenreInput] = useState("");
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
     fetchArtistInfo(artistId);
@@ -39,6 +42,8 @@ function EditArtistPage() {
       .then((resp) => {
         setArtistInfo(resp.data);
         setQueryLocation(resp.data.location);
+        // setGenreInput(resp.data.genre);
+        setGenres(resp.data.genre);
       })
       .then((resp) => {
         // const socials = resp.data.socials;
@@ -138,9 +143,32 @@ function EditArtistPage() {
     });
   };
 
+  //genre management
   const handleGenre = (e) => {
     setArtistInfo({ ...artistInfo, genre: e.target.value });
   };
+  const handleGenreInputChange = (e) => setGenreInput(e.target.value);
+  // Add the current input value to the genres list when Enter is pressed
+  const handleGenreKeyDown = (e) => {
+    if (e.key === "Enter" && genreInput.trim()) {
+      e.preventDefault();
+      const newGenre = genreInput.trim().toLowerCase();
+      const isDuplicate = genres.some(
+        (genre) => genre.toLowerCase() === newGenre
+      );
+      if (!isDuplicate) {
+        setGenres((prevGenres) => [...prevGenres, genreInput.trim()]);
+      }
+      setGenreInput("");
+    }
+  };
+
+  // Remove a genre from the list
+  const handleRemoveGenre = (index) => {
+    setGenres((prevGenres) => prevGenres.filter((_, i) => i !== index));
+  };
+
+  const handleMedia = (e) => setMedia(e.target.value);
 
   const handleMediaChange = (e) => {
     setArtistInfo({ ...artistInfo, mediaArr: e.target.value });
@@ -234,15 +262,6 @@ function EditArtistPage() {
         </label>
         <br />
         {/* <label>
-          Location:
-          <input
-            type="text"
-            value={artistInfo.location}
-            onChange={handleLocation}
-          />
-        </label> */}
-        <br />
-        {/* <label>
           Type:
           <input
             type="text"
@@ -289,11 +308,35 @@ function EditArtistPage() {
             <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
           )}
         </label>
-        <br />
+        {/* <br />
         <label>
           Genre:
           <input type="text" value={artistInfo.genre} onChange={handleGenre} />
-        </label>
+        </label> */}
+        <br />
+        <div className="genre-labels">
+          <label>
+            Genres:
+            <input
+              type="text"
+              placeholder="Type and press Enter to add genre"
+              value={genreInput}
+              onChange={handleGenreInputChange}
+              onKeyDown={handleGenreKeyDown}
+            />
+          </label>
+          <ul>
+            {genres.map((g, index) => (
+              <li key={index}>
+                {g}
+                <button type="button" onClick={() => handleRemoveGenre(index)}>
+                  &times;
+                </button>
+              </li>
+            ))}
+          </ul>
+          <br />
+        </div>
         <br />
         <label>
           Add your Media:
