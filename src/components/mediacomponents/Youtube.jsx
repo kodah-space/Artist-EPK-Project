@@ -17,11 +17,11 @@ function Youtube(media) {
   const embedUrl = convertToEmbedUrl(watchUrl);
 
   return (
-    <div>
+    <div className="">
       {" "}
       <iframe
-        width="560"
-        height="315"
+        width="100%"
+        height="100%"
         src={embedUrl}
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

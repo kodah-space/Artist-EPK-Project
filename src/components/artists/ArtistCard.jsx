@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function ArtistCard({ artist }) {
   return (
-    <Link to={`/artist/${artist.id}`}>
+    <Link to={`/artists/${artist.id}`}>
       <div className="overflow-hidden rounded-lg shadow-lg md:max-w-64 flex-start m-3">
         <div class="relative mx-auto">
           <img
@@ -22,11 +22,20 @@ export default function ArtistCard({ artist }) {
           </div>
         </div>
         <div className="text-right p-2">
-          <p className="text-grey-darker text-sm">LOCATION</p>
+          <p className="text-grey-darker text-sm">› {artist.location}</p>
         </div>
         <div className="px-3 pb-3 line-clamp-5">
           <p className="font-[Linux-Libertine] text-l">{artist.shoutout}</p>
         </div>
+        {console.log(artist.genre)}
+        {/* {artist.genre.map((g, index) => (
+          <li key={index}>{g}</li>
+        ))} */}
+
+        {artist &&
+          artist.genre &&
+          Array.isArray(artist.genre) &&
+          artist.genre.map((g, index) => <li key={index}>{g}</li>)}
       </div>
     </Link>
   );

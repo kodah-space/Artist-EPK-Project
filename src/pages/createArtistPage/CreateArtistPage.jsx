@@ -9,6 +9,8 @@ function CreateArtistPage() {
   const [queryLocation, setQueryLocation] = useState("");
   const [active, setActive] = useState(true);
   const { suggestions, clearSuggestions } = useLocationSearch(queryLocation);
+  const defaultImageUrl =
+    "https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png";
 
   const [image, setImage] = useState("");
   const [artistName, setArtistName] = useState("");
@@ -19,7 +21,9 @@ function CreateArtistPage() {
   const [selectedSocial, setSelectedSocial] = useState(optionsSocial[0]);
   const [socialsArr, setSocialsArr] = useState([]);
   const [shoutout, setShoutout] = useState("");
-  const [genre, setGenre] = useState("");
+  // State to manage the input and the list of genres
+  const [genreInput, setGenreInput] = useState("");
+  const [genres, setGenres] = useState([]);
   const optionsMedia = ["Youtube", "Soundcloud", "Spotify"];
   const [optionsMediaArr, setoptionsMediaArr] = useState([]);
   const [selectedMedia, setSelectedMedia] = useState("");
@@ -42,12 +46,12 @@ function CreateArtistPage() {
 
   //Location methods
 
-  const handleSearch = (event) => {
+  const handleLocationSearch = (event) => {
     setQueryLocation(event.target.value);
     setActive(true);
   };
 
-  const handleSelect = (suggestion) => {
+  const handleLocationSelect = (suggestion) => {
     setQueryLocation(suggestion.display_name);
     setActive(false);
     clearSuggestions();
@@ -108,7 +112,28 @@ function CreateArtistPage() {
     }
   };
 
-  const handleGenre = (e) => setGenre(e.target.value);
+  const handleGenreInputChange = (e) => setGenreInput(e.target.value);
+
+  // Add the current input value to the genres list when Enter is pressed
+  const handleGenreKeyDown = (e) => {
+    if (e.key === "Enter" && genreInput.trim()) {
+      e.preventDefault();
+      const newGenre = genreInput.trim().toLowerCase();
+      const isDuplicate = genres.some(
+        (genre) => genre.toLowerCase() === newGenre
+      );
+      if (!isDuplicate) {
+        setGenres((prevGenres) => [...prevGenres, genreInput.trim()]);
+      }
+      setGenreInput("");
+    }
+  };
+
+  // Remove a genre from the list
+  const handleRemoveGenre = (index) => {
+    setGenres((prevGenres) => prevGenres.filter((_, i) => i !== index));
+  };
+
   const handleMedia = (e) => setMedia(e.target.value);
 
   //Handle media
@@ -158,6 +183,7 @@ function CreateArtistPage() {
   //submit the new form
   const handleSubmit = (e) => {
     e.preventDefault();
+    const finalImage = image || defaultImageUrl;
 
     userServices
       .createNewUser({
@@ -165,9 +191,9 @@ function CreateArtistPage() {
         shoutout: shoutout,
         bio: bio,
         type: type,
-        imageUrl: image,
+        imageUrl: finalImage,
         location: queryLocation,
-        genre: genre,
+        genre: genres,
         socials: socialsArr,
       })
       .then((resp) => {
@@ -202,34 +228,38 @@ function CreateArtistPage() {
     setSelectedSocial("");
     setSocialsArr([{}]);
     setShoutout("");
-    setGenre("");
+    setGenres([]);
     setSelectedMedia("");
     setMediaArr([{}]);
   };
   console.log(socialsArr);
   console.log(mediaArr);
+
   return (
-    <div className="createArtistPage-container">
-      <p>Insert your changes: </p>
-      <form onSubmit={handleSubmit}>
+    <div className="">
+      <h2>Your Artist Profile </h2>
+      <form onSubmit={handleSubmit} className="text-left p-5">
         <div className="addArtist-labels">
           <label>
             Image:
+            <br />
             <input
               name="image"
               type="url"
-              placeholder="Enter image"
+              placeholder="enter image-URL"
               value={image}
               onChange={handleImage}
+              className=""
             />
           </label>
           <br />
           <label>
-            ArtistName:
+            Name:
+            <br />
             <input
               name="artistName"
               type="text"
-              placeholder="Enter Artist Name"
+              placeholder="enter artist name"
               value={artistName}
               onChange={handleArtistName}
             />
@@ -237,10 +267,11 @@ function CreateArtistPage() {
           <br />
           <label>
             Bio:
+            <br />
             <input
               name="bio"
               type="text"
-              placeholder="Enter Bio"
+              placeholder="enter bio"
               value={bio}
               onChange={handleBio}
             />
@@ -248,18 +279,33 @@ function CreateArtistPage() {
           {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
           <br />
           <label>
+            Shoutout:
+            <input
+              name="shoutout"
+              type="text"
+              placeholder="enter a community shoutout"
+              value={shoutout}
+              onChange={handleShoutout}
+            />
+          </label>
+          {shoutoutErrorMessage && (
+            <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
+          )}
+          <br />
+          <label>
+            Location:
             <input
               type="text"
               value={queryLocation}
-              onChange={handleSearch}
-              placeholder="Search for a location"
+              onChange={handleLocationSearch}
+              placeholder="search for location"
             />
             {suggestions.length > 0 && (
               <ul>
                 {suggestions.map((suggestion) => (
                   <li
                     key={suggestion.place_id}
-                    onClick={() => handleSelect(suggestion)}
+                    onClick={() => handleLocationSelect(suggestion)}
                   >
                     {suggestion.display_name}
                   </li>
@@ -267,7 +313,6 @@ function CreateArtistPage() {
               </ul>
             )}
           </label>
-          <br />
           {/* <label>
             Location:
             <input
@@ -278,7 +323,6 @@ function CreateArtistPage() {
               onChange={handleLocation}
             />
           </label> */}
-          <br />
           {/* <label>
             Type:
             <input
@@ -291,65 +335,87 @@ function CreateArtistPage() {
             />
           </label> */}
           <br />
-          <label>
-            Add your Socials:
-            {socialsArr.map((social, index) => {
-              return (
-                <div>
-                  <select
-                    id={`datalist-${index}`}
-                    value={social.selectedSocial}
-                    onChange={(e) => handleSocialSelection(e, index)}
+          <div className="genre-labels">
+            <label>
+              Genres:
+              <input
+                type="text"
+                placeholder="Type and press Enter to add genre"
+                value={genreInput}
+                onChange={handleGenreInputChange}
+                onKeyDown={handleGenreKeyDown}
+              />
+            </label>
+            <ul>
+              {genres.map((g, index) => (
+                <li key={index}>
+                  {g}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveGenre(index)}
                   >
-                    {optionsSocial.map((option, optionIndex) => (
-                      <option key={optionIndex} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    name={selectedSocial}
-                    type="url"
-                    placeholder="Enter Social Network"
-                    key={index}
-                    value={social[selectedSocial] || ""}
-                    onChange={(e) => handleSocialChange(e, index)}
-                  />
-                </div>
-              );
-            })}
-            <button type="button" onClick={addSocial}>
-              +
-            </button>
-          </label>
-          <br />
-          <label>
-            Shoutout:
-            <input
-              name="shoutout"
-              type="text"
-              placeholder="Enter shoutout"
-              value={shoutout}
-              onChange={handleShoutout}
-            />
-          </label>
-          {shoutoutErrorMessage && (
-            <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
-          )}
-          <br />
-          <label>
+                    &times;
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <br />
+          </div>
+          {/* <label>
             Genre:
+            <br />
             <input
               name="genre"
               type="text"
-              placeholder="Enter genre"
+              placeholder="enter genres"
               value={genre}
               onChange={handleGenre}
             />
-          </label>
+          </label> */}
           <br />
+          <div>
+            <label>
+              Add Socials:
+              <button
+                type="button"
+                onClick={addSocial}
+                className="bg-transparent border rounded border-black hover:border-[#26C281] py-0.75 px-2 mx-2 text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0 md:m-0"
+              >
+                add more
+              </button>
+              {socialsArr.map((social, index) => {
+                return (
+                  <div>
+                    <select
+                      id={`datalist-${index}`}
+                      value={social.selectedSocial}
+                      onChange={(e) => handleSocialSelection(e, index)}
+                    >
+                      {optionsSocial.map((option, optionIndex) => (
+                        <option key={optionIndex} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      name={selectedSocial}
+                      type="url"
+                      placeholder="enter account url"
+                      key={index}
+                      value={social[selectedSocial] || ""}
+                      onChange={(e) => handleSocialChange(e, index)}
+                    />
+                  </div>
+                );
+              })}
+              <br />
+            </label>
+          </div>
+          <br />
+
+          <h2 className="px-0">Your Media</h2>
           <label>
-            Add your Media:
+            Add Media:
             {mediaArr.map((media, mediaIndex) => {
               return (
                 <div>
@@ -375,13 +441,19 @@ function CreateArtistPage() {
                 </div>
               );
             })}
-            <button type="button" onClick={addMedia}>
-              +
+            <button
+              type="button"
+              onClick={addMedia}
+              className="bg-transparent border rounded border-black hover:border-[#26C281] py-0.75 px-2 mx-2 text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0 md:m-0"
+            >
+              ✚
             </button>
           </label>
           <br />
         </div>
-        <button type="submit">Create New Artist</button>
+        <button type="submit" className="btn-primary-green-bg">
+          Submit Profile
+        </button>
       </form>
     </div>
   );
