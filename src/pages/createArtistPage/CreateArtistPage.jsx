@@ -325,42 +325,49 @@ function CreateArtistPage() {
             />
           </label>
           <br />
-          <label>
-            Add Your Socials:
-            {socialsArr.map((social, index) => {
-              return (
-                <div>
-                  <select
-                    id={`datalist-${index}`}
-                    value={social.selectedSocial}
-                    onChange={(e) => handleSocialSelection(e, index)}
-                  >
-                    {optionsSocial.map((option, optionIndex) => (
-                      <option key={optionIndex} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    name={selectedSocial}
-                    type="url"
-                    placeholder="enter social network"
-                    key={index}
-                    value={social[selectedSocial] || ""}
-                    onChange={(e) => handleSocialChange(e, index)}
-                  />
-                </div>
-              );
-            })}
-            <br />
-            <button type="button" onClick={addSocial}>
-              select
-            </button>
-          </label>
+          <div>
+            <label>
+              Add Socials:
+              <button
+                type="button"
+                onClick={addSocial}
+                className="bg-transparent border rounded border-black hover:border-[#26C281] py-0.75 px-2 mx-2 text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0 md:m-0"
+              >
+                add more
+              </button>
+              {socialsArr.map((social, index) => {
+                return (
+                  <div>
+                    <select
+                      id={`datalist-${index}`}
+                      value={social.selectedSocial}
+                      onChange={(e) => handleSocialSelection(e, index)}
+                    >
+                      {optionsSocial.map((option, optionIndex) => (
+                        <option key={optionIndex} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      name={selectedSocial}
+                      type="url"
+                      placeholder="enter account url"
+                      key={index}
+                      value={social[selectedSocial] || ""}
+                      onChange={(e) => handleSocialChange(e, index)}
+                    />
+                  </div>
+                );
+              })}
+              <br />
+            </label>
+          </div>
           <br />
 
+          <h2 className="px-0">Your Media</h2>
           <label>
-            Add your Media:
+            Add Media:
             {mediaArr.map((media, mediaIndex) => {
               return (
                 <div>
@@ -386,16 +393,20 @@ function CreateArtistPage() {
                 </div>
               );
             })}
-            <button type="button" onClick={addMedia}>
-              +
+            <button
+              type="button"
+              onClick={addMedia}
+              className="bg-transparent border rounded border-black hover:border-[#26C281] py-0.75 px-2 mx-2 text-black md:hover:bg-transparent md:border-0 hover:text-[#26C281] md:p-0 md:m-0"
+            >
+              ✚
             </button>
           </label>
           <br />
         </div>
+        <button type="submit" className="btn-primary-green-bg">
+          Submit Profile
+        </button>
       </form>
-      <button type="submit" className="btn-primary-green-bg">
-        Submit Profile
-      </button>
     </div>
   );
 }
