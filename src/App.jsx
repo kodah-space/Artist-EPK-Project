@@ -47,6 +47,10 @@ function App() {
             path="/artists/media/:artistId"
             element={<ArtistMediaPage />}
           />
+          <Route
+            path="/artists/media/:artistId/edit"
+            element={<EditArtistPage />}
+          />
         </Routes>
       </div>
       <Footer />
