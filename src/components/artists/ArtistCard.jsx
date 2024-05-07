@@ -27,6 +27,15 @@ export default function ArtistCard({ artist }) {
         <div className="px-3 pb-3 line-clamp-5">
           <p className="font-[Linux-Libertine] text-l">{artist.shoutout}</p>
         </div>
+        {console.log(artist.genre)}
+        {/* {artist.genre.map((g, index) => (
+          <li key={index}>{g}</li>
+        ))} */}
+
+        {artist &&
+          artist.genre &&
+          Array.isArray(artist.genre) &&
+          artist.genre.map((g, index) => <li key={index}>{g}</li>)}
       </div>
     </Link>
   );

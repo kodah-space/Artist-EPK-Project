@@ -63,6 +63,11 @@ function ArtistPage() {
         <div className="flex flex-col items-center p-3">
           <div className="flex flex-col items-center md:flex-row-reverse ">
             <div className="pb-2 md: flex flex-col items center">
+              <p>
+                {userData.genre.map((e) => {
+                  return <p>{e}</p>;
+                })}
+              </p>
               <p>↓</p>
               <p>{userData.shoutout}</p>
               <p>↑</p>
