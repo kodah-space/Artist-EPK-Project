@@ -146,10 +146,18 @@ function EditArtistPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // First, update the user information
     userServices
       .updateUserByID(artistId, artistInfo)
-      .then((resp) => {
-        console.log("Artist information updated successfully:", resp);
+      .then((userResp) => {
+        console.log("Artist information updated successfully:", userResp);
+
+        // After the user information is successfully updated, update the media information
+        return userServices.updateMediaByArtistID(artistId, mediaInfo);
+      })
+      .then((mediaResp) => {
+        console.log("Media information updated successfully:", mediaResp);
       })
       .catch((error) => {
         console.error("Error updating artist information:", error);

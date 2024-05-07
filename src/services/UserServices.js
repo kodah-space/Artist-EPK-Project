@@ -24,7 +24,7 @@ class UserServices {
   getMediaByArtistID(artistId) {
     return this.api.get("/media?artistId=" + artistId);
   }
-  updateMediaByArtistID(artistId) {
+  updateMediaByArtistID(artistId, reqBody) {
     return this.api.put("/media?artistId=" + artistId, reqBody);
   }
   postMediaByArtistID(reqBody) {
