@@ -158,6 +158,7 @@ function EditArtistPage() {
       );
       if (!isDuplicate) {
         setGenres((prevGenres) => [...prevGenres, genreInput.trim()]);
+        setArtistInfo({ ...artistInfo, genre: genres });
       }
       setGenreInput("");
     }
