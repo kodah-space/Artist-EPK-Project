@@ -39,3 +39,7 @@ const getArtistTopAlbums = async (artistName) => {
 };
 
 export { searchArtists, getArtistInfo, getArtistTopAlbums };
+
+
+
+

@@ -217,8 +217,7 @@ function CreateArtistPage() {
   };
   return (
     <div className="profile-container">
-
-      <h2>Your Artist Profile </h2>
+      {/* <h2>Your Artist Profile </h2> */}
 
       {successMessage && (
         <div className="success-message">
@@ -230,7 +229,6 @@ function CreateArtistPage() {
           )}
         </div>
       )}
-
 
       <form onSubmit={handleSubmit} className="flex flex-col text-left p-5">
         <h2 className="px-0">Your Artist Profile </h2>
@@ -435,7 +433,6 @@ function CreateArtistPage() {
           </div>
           <br />
 
-
           {/* <h2 className="px-0">Your Media</h2> */}
           <div className="py-2.5">
             {/* add media here */}
@@ -463,7 +460,6 @@ function CreateArtistPage() {
                 />
               </div>
             ))}
-
           </div>
           <button
             type="button"
