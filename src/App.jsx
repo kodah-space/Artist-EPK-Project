@@ -38,7 +38,6 @@ function App() {
         <SoundCloud />
         <Youtube />
         <Spotify />
-        <EditArtistPage />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/contact" element={<ContactPage />} />
