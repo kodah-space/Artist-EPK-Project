@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import userServices from "../../services/UserServices";
 import useLocationSearch from "../../services/UseLocationSearch";
 
@@ -11,7 +12,6 @@ function CreateArtistPage() {
   const { suggestions, clearSuggestions } = useLocationSearch(queryLocation);
   const defaultImageUrl =
     "https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png";
-
   const [image, setImage] = useState("");
   const [artistName, setArtistName] = useState("");
   const [bio, setBio] = useState("");
@@ -24,10 +24,13 @@ function CreateArtistPage() {
   // State to manage the input and the list of genres
   const [genreInput, setGenreInput] = useState("");
   const [genres, setGenres] = useState([]);
-  const optionsMedia = ["Youtube", "Soundcloud", "Spotify"];
-  const [optionsMediaArr, setoptionsMediaArr] = useState([]);
-  const [selectedMedia, setSelectedMedia] = useState("");
-  const [mediaArr, setMediaArr] = useState([{ mediaURL: "" }]);
+  const optionsMedia = ["select Option", "youtube", "spotify"];
+  const [successMessage, setSuccessMessage] = useState("");
+  const [newArtistId, setNewArtistId] = useState(null); // New artist ID state
+  const navigate = useNavigate();
+  const [mediaArr, setMediaArr] = useState([{ mediaType: "", mediaURL: "" }]);
+
+  console.log(mediaArr);
 
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
@@ -134,52 +137,22 @@ function CreateArtistPage() {
     setGenres((prevGenres) => prevGenres.filter((_, i) => i !== index));
   };
 
-  const handleMedia = (e) => setMedia(e.target.value);
+  const handleMediaSelection = (e, index) => {
+    const updatedMedia = [...mediaArr];
+    updatedMedia[index].mediaType = e.target.value;
+    setMediaArr(updatedMedia);
+  };
 
-  //Handle media
+  const handleMediaChange = (e, index) => {
+    const updatedMedia = [...mediaArr];
+    updatedMedia[index].mediaURL = e.target.value;
+    setMediaArr(updatedMedia);
+  };
+
   const addMedia = () => {
-    // const newMedia = { [optionsMedia[0]]: "" };
-    const newMedia = { ["mediaURL"]: "" };
-
-    setMediaArr([...mediaArr, newMedia]);
+    // Append a new media object to the array with default values
+    setMediaArr([...mediaArr, { mediaType: "", mediaURL: "" }]);
   };
-
-  const handleMediaSelection = (e, i) => {
-    setSelectedMedia(e.target.value);
-
-    // setoptionsMediaArr([...optionsMediaArr, e.target.value]);
-
-    // const updatedMediaArr = [...mediaArr];
-    // const updatedObject = { ...updatedMediaArr[i] };
-    // const currentKey = Object.keys(updatedObject)[i];
-
-    // delete updatedObject[currentKey];
-    // updatedObject["mediaURL"] = "";
-    // updatedMediaArr[i] = updatedObject;
-
-    // setMediaArr(updatedMediaArr);
-
-    setMediaArr((prev) => {
-      prev[i] = { [e.target.value]: "" };
-      return prev;
-    });
-  };
-
-  const handleMediaChange = (e, i) => {
-    // const updatedMedia = [...mediaArr];
-    // updatedMedia[i] = {
-    //   ...updatedMedia[i],
-    //   // [selectedMedia]: e.target.value,
-    //   ["mediaURL"]: e.target.value,
-    // };
-    // setMediaArr(updatedMedia);
-
-    setMediaArr((prev) => {
-      prev[i] = { [Object.keys(prev[i])[0]]: e.target.value };
-      return prev;
-    });
-  };
-
   //submit the new form
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -198,16 +171,18 @@ function CreateArtistPage() {
       })
       .then((resp) => {
         const artistId = resp.data.id;
+        setNewArtistId(resp.data.id); // Save the new artist ID
+
         const mediaPromises = mediaArr.map((media, index) =>
           userServices.postMediaByArtistID({
             artistId: artistId,
             // mediaType: optionsMediaArr[index],
-            mediaType: Object.keys(media),
+            mediaType: media.mediaType,
             // mediaURL: media.mediaURL,
-            mediaURL: { ["mediaURL"]: media.mediaURL },
+            mediaURL: media.mediaURL,
           })
         );
-
+        setSuccessMessage("Artist created successfully!");
         // Execute all promises concurrently
         return Promise.all(mediaPromises);
       })
@@ -216,6 +191,7 @@ function CreateArtistPage() {
         // Handle responses here if needed
       })
       .catch((error) => {
+        setSuccessMessage("Failed to create artist. Please try again.");
         console.error("Error creating new user or posting media:", error);
       });
 
@@ -229,14 +205,33 @@ function CreateArtistPage() {
     setSocialsArr([{}]);
     setShoutout("");
     setGenres([]);
-    setSelectedMedia("");
-    setMediaArr([{}]);
+    // setSelectedMedia("");
+    // setMediaArr([{}]);
   };
   console.log(socialsArr);
   console.log(mediaArr);
-
+  const viewProfile = () => {
+    if (newArtistId) {
+      navigate(`/artists/${newArtistId}`);
+    }
+  };
   return (
     <div className="profile-container">
+
+      <h2>Your Artist Profile </h2>
+
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+          {newArtistId && (
+            <button onClick={viewProfile} className="btn-primary ml-2">
+              View Profile
+            </button>
+          )}
+        </div>
+      )}
+
+
       <form onSubmit={handleSubmit} className="flex flex-col text-left p-5">
         <h2 className="px-0">Your Artist Profile </h2>
         <div className="addArtist-labels">
@@ -439,48 +434,44 @@ function CreateArtistPage() {
             </label>
           </div>
           <br />
-          <div className="flex flex-col ">
-            <h2 className="px-0">Your Media</h2>
-            <div className="py-2.5">
-              <label>
-                Add Media:
-                {mediaArr.map((media, mediaIndex) => {
-                  return (
-                    <div className="py-1.5">
-                      <select
-                        id={`datalist-${mediaIndex}`}
-                        value={media.selectedMedia}
-                        onChange={(e) => handleMediaSelection(e, mediaIndex)}
-                      >
-                        {optionsMedia.map((option, optionIndex) => (
-                          <option key={optionIndex} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                      <br />
-                      <input
-                        name={selectedMedia}
-                        type="url"
-                        placeholder="enter media url"
-                        key={mediaIndex}
-                        value={media[selectedMedia] || ""}
-                        onChange={(e) => handleMediaChange(e, mediaIndex)}
-                      />
-                    </div>
-                  );
-                })}
-                <br />
-                <button
-                  type="button"
-                  onClick={addMedia}
-                  className="btn-primary m-0 py-1.5"
+
+
+          {/* <h2 className="px-0">Your Media</h2> */}
+          <div className="py-2.5">
+            {/* add media here */}
+
+            {mediaArr.map((media, mediaIndex) => (
+              <div className="py-1.5" key={mediaIndex}>
+                <select
+                  id={`datalist-${mediaIndex}`}
+                  value={media.selectedMedia}
+                  onChange={(e) => handleMediaSelection(e, mediaIndex)}
                 >
-                  + more
-                </button>
-              </label>
-            </div>
+                  {optionsMedia.map((option, optionIndex) => (
+                    <option key={optionIndex} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <br />
+                <input
+                  name={`url-${mediaIndex}`}
+                  type="url"
+                  placeholder="Enter media URL"
+                  value={media.mediaURL || ""}
+                  onChange={(e) => handleMediaChange(e, mediaIndex)}
+                />
+              </div>
+            ))}
+
           </div>
+          <button
+            type="button"
+            onClick={addMedia}
+            className="btn-primary m-0 py-1.5"
+          >
+            Add More
+          </button>
           <br />
         </div>
         <button type="submit" className="btn-primary-green-bg mt-10">
