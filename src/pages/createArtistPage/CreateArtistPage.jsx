@@ -334,6 +334,22 @@ function CreateArtistPage() {
               readOnly
             />
           </label> */}
+
+          {/* <div className="py-2.5">
+            <label>
+              Genre:
+              <br />
+              <input
+                name="genre"
+                type="text"
+                placeholder="enter music genres"
+                value={genre}
+                onChange={handleGenre}
+              />
+            </label> */}
+        </div>
+        <div className="py-2.5">
+
           <br />
           <div className="genre-labels">
             <label>
