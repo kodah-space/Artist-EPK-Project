@@ -63,14 +63,18 @@ function ArtistPage() {
         <div className="flex flex-col items-center p-3">
           <div className="flex flex-col items-center md:flex-row-reverse ">
             <div className="pb-2 md: flex flex-col items center">
-              <p>
-                {userData.genre.map((e) => {
-                  return <p>{e}</p>;
-                })}
-              </p>
               <p>↓</p>
               <p>{userData.shoutout}</p>
               <p>↑</p>
+              <div className="pb-0 pt-3">
+                {userData.genre.map((e) => {
+                  return (
+                    <p className="style-none inline-flex flex-row flex-wrap items-center text-center text-xs text-white bg-[#26C281] border rounded-xl py-0.75 px-1.5 mb-5 mx-1">
+                      {e}
+                    </p>
+                  );
+                })}
+              </div>
             </div>
             <img
               src={userData.imageUrl}
@@ -82,6 +86,8 @@ function ArtistPage() {
         <p className="font-[Linux-Libertine] text-lg p-5 md:p-5">
           {userData.bio}
         </p>
+
+        {/* SOCIAL MEDIA */}
 
         <h3 className="text-start pb-10">Media</h3>
         <div className="flex flex-col items-center list-none">

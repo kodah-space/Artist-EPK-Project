@@ -27,7 +27,6 @@ export default function ArtistCard({ artist }) {
         <div className="px-3 pb-3 line-clamp-5">
           <p className="font-[Linux-Libertine] text-l">{artist.shoutout}</p>
         </div>
-        {console.log(artist.genre)}
         {/* {artist.genre.map((g, index) => (
           <li key={index}>{g}</li>
         ))} */}
@@ -35,7 +34,14 @@ export default function ArtistCard({ artist }) {
         {artist &&
           artist.genre &&
           Array.isArray(artist.genre) &&
-          artist.genre.map((g, index) => <li key={index}>{g}</li>)}
+          artist.genre.map((g, index) => (
+            <li
+              key={index}
+              className="style-none inline-flex flex-row flex-wrap items-center text-center text-xs text-white bg-[#26C281] border rounded-xl py-0.75 px-1.5 mb-5 mx-1"
+            >
+              {g}
+            </li>
+          ))}
       </div>
     </Link>
   );
