@@ -109,7 +109,10 @@ function ArtistPage() {
           return <Soundcloud url={media.mediaURL} />;
         })}
       </li> */}
-      <Link to="/artist/:artistId/edit" className="btn-primary-green-bg">
+      <Link
+        to={`/artists/edit/${userData.id}`}
+        className="btn-primary-green-bg"
+      >
         Edit Profile
       </Link>
     </div>

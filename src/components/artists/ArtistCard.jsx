@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function ArtistCard({ artist }) {
   return (
-    <Link to={`/artist/${artist.id}`}>
+    <Link to={`/artists/${artist.id}`}>
       <div className="overflow-hidden rounded-lg shadow-lg md:max-w-64 flex-start m-3">
         <div class="relative mx-auto">
           <img
