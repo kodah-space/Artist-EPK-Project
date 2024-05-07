@@ -20,7 +20,6 @@ function App() {
       <Navbar />
 
       <div>
-
         {/* <EditArtistPage /> */}
 
         <Routes>
@@ -28,16 +27,13 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/artists" element={<Artists />} />
-          <Route path="/artist/:artistId" element={<ArtistPage />} />
+          <Route path="/artists/:artistId" element={<ArtistPage />} />
           <Route path="/artists/create" element={<CreateArtistPage />} />
-          <Route
+          {/* <Route
             path="/artists/media/:artistId"
             element={<ArtistMediaPage />}
-          />
-          <Route
-            path="/artists/media/:artistId/edit"
-            element={<EditArtistPage />}
-          />
+          /> */}
+          <Route path="/artists/edit/:artistId" element={<EditArtistPage />} />
         </Routes>
       </div>
       <Footer />
