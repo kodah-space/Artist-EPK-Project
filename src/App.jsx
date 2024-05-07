@@ -13,22 +13,8 @@ import DeleteArtist from "./components/artists/DeleteArtist.jsx";
 import ArtistMediaPage from "./pages/artistMediaPage/ArtistMediaPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import userServices from "./services/UserServices";
-import { useEffect } from "react";
-import SoundCloud from "./components/mediacomponents/SoundCloud.jsx";
-import Youtube from "./components/mediacomponents/Youtube.jsx";
-import Spotify from "./components/mediacomponents/Spotify.jsx";
 
 function App() {
-  // useEffect(() => {
-  //   userServices
-  //     .createNewUser({
-  //       ArtistName: "zzzzzzzzzz",
-  //       bio: "zzzzzzzzzzz",
-  //     })
-  //     .then((resp) => console.log(resp.data));
-  // }, []);
-
   return (
     <>
       <Navbar />
