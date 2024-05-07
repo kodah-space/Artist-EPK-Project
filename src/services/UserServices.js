@@ -12,6 +12,9 @@ class UserServices {
   getUserByID(id) {
     return this.api.get("/users/" + id);
   }
+  updateUserByID(artistId, reqBody) {
+    return this.api.put("/users/" + artistId, reqBody);
+  }
   createNewUser(reqBody) {
     return this.api.post("/users", reqBody);
   }
@@ -20,6 +23,9 @@ class UserServices {
   }
   getMediaByArtistID(artistId) {
     return this.api.get("/media?artistId=" + artistId);
+  }
+  updateMediaByArtistID(artistId, reqBody) {
+    return this.api.put("/media?artistId=" + artistId, reqBody);
   }
   postMediaByArtistID(reqBody) {
     this.api.post("/media", reqBody);

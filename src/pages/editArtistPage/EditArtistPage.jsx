@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import userServices from "../../services/UserServices";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 function EditArtistPage() {
-  const artistId = 1;
+  const { artistId } = useParams();
+
+  console.log(`param from the URL: `, artistId);
+
   const [artistInfo, setArtistInfo] = useState({
     imageUrl: "",
     artistName: "",
@@ -13,16 +17,15 @@ function EditArtistPage() {
     socials: [{}],
     shoutout: "",
     genre: "",
-    mediaArr: [{}],
   });
+
+  const [mediaInfo, setMediaInfo] = useState([]);
 
   const [socialsArr, setSocialsArr] = useState([]);
 
   useEffect(() => {
     fetchArtistInfo(artistId);
-
-    // console.log(`after fetching my artist: `, artistInfo);
-    console.log(`after fetching social array: `, socialsArr);
+    fetchMedia(artistId);
   }, [artistId]);
 
   const fetchArtistInfo = (artistId) => {
@@ -41,6 +44,17 @@ function EditArtistPage() {
       })
       .catch((error) => {
         console.error("Error fetching artist information:", error);
+      });
+  };
+
+  const fetchMedia = (artistId) => {
+    userServices
+      .getMediaByArtistID(artistId)
+      .then((resp) => {
+        setMediaInfo(resp.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching media:", error);
       });
   };
 
@@ -109,37 +123,44 @@ function EditArtistPage() {
     setArtistInfo({ ...artistInfo, genre: e.target.value });
   };
 
-  const handleMediaSelection = (e) => {
-    // setArtistInfo({ ...artistInfo, mediaArr: e.target.value });
-  };
-
   const handleMediaChange = (e) => {
     setArtistInfo({ ...artistInfo, mediaArr: e.target.value });
   };
 
-  const addMedia = () => {
-    const newMedia = { [optionsMedia[0]]: "" };
-
-    setArtistInfo({
-      ...artistInfo,
-      mediaArr: [...artistInfo.mediaArr, newMedia],
-    });
+  const handleMediaTypeChange = (e, index) => {
+    const newMediaInfo = [...mediaInfo];
+    newMediaInfo[index].mediaType = e.target.value;
+    setMediaInfo(newMediaInfo);
   };
 
-  // Similar handleChange functions for other fields
+  const handleMediaURLChange = (e, index) => {
+    const newMediaInfo = [...mediaInfo];
+    newMediaInfo[index].mediaURL = e.target.value;
+    setMediaInfo(newMediaInfo);
+  };
+
+  const addMedia = () => {
+    const newMedia = { mediaType: optionsMedia[0], mediaURL: "" };
+    setMediaInfo([...mediaInfo, newMedia]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send a request to update artist information
+
+    // First, update the user information
     userServices
-      .updateArtistInfo(artistId, artistInfo)
-      .then((resp) => {
-        console.log("Artist information updated successfully:", resp);
-        // Optionally, show a success message or redirect to another page
+      .updateUserByID(artistId, artistInfo)
+      .then((userResp) => {
+        console.log("Artist information updated successfully:", userResp);
+
+        // After the user information is successfully updated, update the media information
+        return userServices.updateMediaByArtistID(artistId, mediaInfo);
+      })
+      .then((mediaResp) => {
+        console.log("Media information updated successfully:", mediaResp);
       })
       .catch((error) => {
         console.error("Error updating artist information:", error);
-        // Optionally, show an error message to the user
       });
   };
 
@@ -192,27 +213,6 @@ function EditArtistPage() {
         <br />
         <label>
           Add your Socials:
-          {/* {socialsArr.map((social, index) => {
-            return (
-              <div key={index}>
-                <select
-                  value={Object.keys(social)}
-                  onChange={(e) => handleSocialSelection(e, index)}
-                >
-                  {optionsSocial.map((option, optionIndex) => (
-                    <option key={optionIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="url"
-                  value={social}
-                  onChange={(e) => handleSocialChange(e, index)}
-                />
-              </div>
-            );
-          })} */}
           {Object.keys(artistInfo.socials).map((socialKey, index) => (
             <div key={index}>
               <select
@@ -227,7 +227,7 @@ function EditArtistPage() {
               </select>
               <input
                 type="url"
-                value={artistInfo.socials[socialKey]} // Access the value using the key
+                value={artistInfo.socials[socialKey]}
                 onChange={(e) => handleSocialChange(e, index)}
               />
             </div>
@@ -256,11 +256,11 @@ function EditArtistPage() {
         <br />
         <label>
           Add your Media:
-          {/* {artistInfo.mediaArr.map((media, index) => (
+          {mediaInfo.map((media, index) => (
             <div key={index}>
               <select
-                value={Object.keys(media)[0]}
-                onChange={(e) => handleMediaSelection(e, index)}
+                value={media.mediaType}
+                onChange={(e) => handleMediaTypeChange(e, index)}
               >
                 {optionsMedia.map((option, optionIndex) => (
                   <option key={optionIndex} value={option}>
@@ -270,11 +270,11 @@ function EditArtistPage() {
               </select>
               <input
                 type="url"
-                value={Object.values(media)[0]}
-                onChange={(e) => handleMediaChange(e, index)}
+                value={media.mediaURL}
+                onChange={(e) => handleMediaURLChange(e, index)}
               />
             </div>
-          ))} */}
+          ))}
           <button type="button" onClick={addMedia}>
             +
           </button>
