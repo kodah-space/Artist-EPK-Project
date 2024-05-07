@@ -22,7 +22,7 @@ export default function ArtistCard({ artist }) {
           </div>
         </div>
         <div className="text-right p-2">
-          <p className="text-grey-darker text-sm">LOCATION</p>
+          <p className="text-grey-darker text-sm">› {artist.location}</p>
         </div>
         <div className="px-3 pb-3 line-clamp-5">
           <p className="font-[Linux-Libertine] text-l">{artist.shoutout}</p>

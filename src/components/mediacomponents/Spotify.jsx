@@ -15,12 +15,12 @@ function Spotify(media) {
   const embedUrl = convertToEmbedUrl(watchUrl);
 
   return (
-    <div>
+    <div className="h-28">
       {" "}
       <iframe
         src={embedUrl}
-        width="300"
-        height="380"
+        width="100%"
+        height="100%"
         frameborder="0"
         allowtransparency="true"
         allow="encrypted-media"
