@@ -147,7 +147,7 @@ function EditArtistPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     userServices
-      .updateArtistInfo(artistId, artistInfo)
+      .updateUserByID(artistId, artistInfo)
       .then((resp) => {
         console.log("Artist information updated successfully:", resp);
       })
