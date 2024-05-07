@@ -20,7 +20,6 @@ function App() {
       <Navbar />
 
       <div>
-
         {/* <EditArtistPage /> */}
 
         <Routes>
@@ -28,7 +27,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/artists" element={<Artists />} />
-          <Route path="/artist/:artistId" element={<ArtistPage />} />
+          <Route path="/artists/:artistId" element={<ArtistPage />} />
           <Route path="/artists/create" element={<CreateArtistPage />} />
           <Route
             path="/artists/media/:artistId"
