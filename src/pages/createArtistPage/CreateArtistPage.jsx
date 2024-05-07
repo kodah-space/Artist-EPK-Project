@@ -42,12 +42,12 @@ function CreateArtistPage() {
 
   //Location methods
 
-  const handleSearch = (event) => {
+  const handleLocationSearch = (event) => {
     setQueryLocation(event.target.value);
     setActive(true);
   };
 
-  const handleSelect = (suggestion) => {
+  const handleLocationSelect = (suggestion) => {
     setQueryLocation(suggestion.display_name);
     setActive(false);
     clearSuggestions();
@@ -251,7 +251,7 @@ function CreateArtistPage() {
             <input
               type="text"
               value={queryLocation}
-              onChange={handleSearch}
+              onChange={handleLocationSearch}
               placeholder="Search for a location"
             />
             {suggestions.length > 0 && (
@@ -259,7 +259,7 @@ function CreateArtistPage() {
                 {suggestions.map((suggestion) => (
                   <li
                     key={suggestion.place_id}
-                    onClick={() => handleSelect(suggestion)}
+                    onClick={() => handleLocationSelect(suggestion)}
                   >
                     {suggestion.display_name}
                   </li>
