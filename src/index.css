@@ -45,11 +45,27 @@
 textarea {
   border: 1px solid gray;
   border-radius: 4px;
-  padding: 2px 4px;
+  padding: 6px 8px;
   width: 100%;
 }
 
 .profile-container input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #26c281;
+  border-radius: 4px;
+}
+
+.modifyArtistPage-container input,
+textarea {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 6px 8px;
+  width: 100%;
+  color: gray;
+}
+
+.modifyArtistPage-container input:focus,
 textarea:focus {
   outline: none;
   border: 2px solid #26c281;

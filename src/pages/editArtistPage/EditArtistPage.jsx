@@ -165,43 +165,73 @@ function EditArtistPage() {
   };
 
   return (
-    <div className="modifyArtistPage-container">
-      <p>Modify Artist Information:</p>
+    <div className="modifyArtistPage-container p-5 text-left">
+      <h2 className="px-0">Edit Artist Profile</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Image:
-          <input
-            type="url"
-            value={artistInfo.imageUrl}
-            onChange={handleImage}
-          />
-        </label>
-        <br />
-        <label>
-          Artist Name:
-          <input
-            type="text"
-            value={artistInfo.artistName}
-            onChange={handleArtistName}
-          />
-        </label>
-        <br />
-        <label>
-          Bio:
-          <input type="text" value={artistInfo.bio} onChange={handleBio} />
-          {bioErrorMessage && <p style={{ color: "red" }}>{bioErrorMessage}</p>}
-        </label>
-        <br />
-        <label>
-          Location:
-          <input
-            type="text"
-            value={artistInfo.location}
-            onChange={handleLocation}
-          />
-        </label>
-        <br />
-        <label>
+        <div className="py-2.5">
+          <label>
+            Image:
+            <input
+              type="url"
+              value={artistInfo.imageUrl}
+              onChange={handleImage}
+            />
+          </label>
+        </div>
+        <div className="py-2.5">
+          <label>
+            Name:
+            <textarea
+              type="text"
+              value={artistInfo.artistName}
+              onChange={handleArtistName}
+            />
+          </label>
+        </div>
+        <div className="py-2.5">
+          <label>
+            Bio:
+            <textarea type="text" value={artistInfo.bio} onChange={handleBio} />
+            {bioErrorMessage && (
+              <p style={{ color: "red" }}>{bioErrorMessage}</p>
+            )}
+          </label>
+        </div>
+
+        <div className="py-2.5">
+          <label>
+            Shoutout:
+            <textarea
+              type="text"
+              value={artistInfo.shoutout}
+              onChange={handleShoutout}
+            />
+            {shoutoutErrorMessage && (
+              <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
+            )}
+          </label>
+        </div>
+        <div className="py-2.5">
+          <label>
+            Location:
+            <input
+              type="text"
+              value={artistInfo.location}
+              onChange={handleLocation}
+            />
+          </label>
+        </div>
+        <div className="py-2.5">
+          <label>
+            Genre:
+            <input
+              type="text"
+              value={artistInfo.genre}
+              onChange={handleGenre}
+            />
+          </label>
+        </div>
+        {/* <label>
           Type:
           <input
             type="text"
@@ -209,78 +239,77 @@ function EditArtistPage() {
             onChange={handleType}
             readOnly
           />
-        </label>
-        <br />
-        <label>
-          Add your Socials:
-          {Object.keys(artistInfo.socials).map((socialKey, index) => (
-            <div key={index}>
-              <select
-                value={socialKey}
-                onChange={(e) => handleSocialSelection(e, index)}
-              >
-                {optionsSocial.map((option, optionIndex) => (
-                  <option key={optionIndex} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="url"
-                value={artistInfo.socials[socialKey]}
-                onChange={(e) => handleSocialChange(e, index)}
-              />
-            </div>
-          ))}
-          <button type="button" onClick={addSocial}>
-            +
-          </button>
-        </label>
-        <br />
-        <label>
-          Shoutout:
-          <input
-            type="text"
-            value={artistInfo.shoutout}
-            onChange={handleShoutout}
-          />
-          {shoutoutErrorMessage && (
-            <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
-          )}
-        </label>
-        <br />
-        <label>
-          Genre:
-          <input type="text" value={artistInfo.genre} onChange={handleGenre} />
-        </label>
-        <br />
-        <label>
-          Add your Media:
-          {mediaInfo.map((media, index) => (
-            <div key={index}>
-              <select
-                value={media.mediaType}
-                onChange={(e) => handleMediaTypeChange(e, index)}
-              >
-                {optionsMedia.map((option, optionIndex) => (
-                  <option key={optionIndex} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="url"
-                value={media.mediaURL}
-                onChange={(e) => handleMediaURLChange(e, index)}
-              />
-            </div>
-          ))}
-          <button type="button" onClick={addMedia}>
-            +
-          </button>
-        </label>
-        <br />
-        <button type="submit">Save Changes</button>
+        </label> */}
+        <div className="py-2.5">
+          <label>
+            Your Socials:
+            {Object.keys(artistInfo.socials).map((socialKey, index) => (
+              <div key={index}>
+                <select
+                  value={socialKey}
+                  onChange={(e) => handleSocialSelection(e, index)}
+                >
+                  {optionsSocial.map((option, optionIndex) => (
+                    <option key={optionIndex} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="url"
+                  value={artistInfo.socials[socialKey]}
+                  onChange={(e) => handleSocialChange(e, index)}
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addSocial}
+              className="btn-primary m-0 py-1.5"
+            >
+              + more
+            </button>
+          </label>
+        </div>
+
+        <div className="py-1.5 my-5">
+          <label>
+            <h2 className="px-0">Your Media</h2>
+            {mediaInfo.map((media, index) => (
+              <div key={index}>
+                <select
+                  value={media.mediaType}
+                  onChange={(e) => handleMediaTypeChange(e, index)}
+                >
+                  {optionsMedia.map((option, optionIndex) => (
+                    <option key={optionIndex} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="url"
+                  value={media.mediaURL}
+                  onChange={(e) => handleMediaURLChange(e, index)}
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addMedia}
+              className="btn-primary m-0 py-1.5"
+            >
+              + more
+            </button>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          className="btn-primary-green-bg mt-10 style-none flex-row flex-wrap items-center text-center"
+        >
+          Save Changes
+        </button>
       </form>
     </div>
   );

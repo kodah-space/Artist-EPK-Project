@@ -217,6 +217,7 @@ function CreateArtistPage() {
   };
   return (
     <div className="profile-container">
+
       <h2>Your Artist Profile </h2>
 
       {successMessage && (
@@ -230,9 +231,11 @@ function CreateArtistPage() {
         </div>
       )}
 
+
       <form onSubmit={handleSubmit} className="flex flex-col text-left p-5">
+        <h2 className="px-0">Your Artist Profile </h2>
         <div className="addArtist-labels">
-          <div className="py-2.5">
+          <div className="py-2.5 flex flex-row">
             <label>
               Image:
               <br />
@@ -242,7 +245,7 @@ function CreateArtistPage() {
                 placeholder="enter image-URL"
                 value={image}
                 onChange={handleImage}
-                className="border rounded-sm focus:ring-[#26C281] focus:border-[#26C281]"
+                className="border rounded-sm"
               />
             </label>
           </div>
@@ -353,7 +356,6 @@ function CreateArtistPage() {
             </label> */}
         </div>
         <div className="py-2.5">
-          <br />
           <div className="genre-labels">
             <label>
               Genres:
@@ -392,7 +394,7 @@ function CreateArtistPage() {
             />
           </label> */}
           <br />
-          <div>
+          <div className="py-2.5">
             <label>
               Add Socials:
               {socialsArr.map((social, index) => {
@@ -433,6 +435,7 @@ function CreateArtistPage() {
           </div>
           <br />
 
+
           {/* <h2 className="px-0">Your Media</h2> */}
           <div className="py-2.5">
             {/* add media here */}
@@ -460,6 +463,7 @@ function CreateArtistPage() {
                 />
               </div>
             ))}
+
           </div>
           <button
             type="button"

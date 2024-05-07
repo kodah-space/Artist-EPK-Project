@@ -11,6 +11,7 @@ function ArtistPage() {
   console.log(artistId);
   const [userData, setUserData] = useState(null);
   const [userMediaData, setUserMediaData] = useState(null);
+  const [socialsArr, setSocialsArr] = useState([]);
 
   useEffect(() => {
     userServices
@@ -31,6 +32,15 @@ function ArtistPage() {
       })
       .catch((error) => console.error("Failed to fetch data:", error));
   }, [artistId]);
+
+  // useEffect(() => {
+  //   userServices
+  //     .getSocials(artistId)
+  //     .then((resp) => {
+  //       setSocialsArr(resp.data);
+  //     })
+  //     .catch((error) => console.error("Failed to fetch socials:", error));
+  // }, []);
 
   if (!userData || !userMediaData) return "loading...";
 
@@ -65,7 +75,7 @@ function ArtistPage() {
               <p>↓</p>
               <p>{userData.shoutout}</p>
               <p>↑</p>
-              <div className="pb-0 pt-3">
+              <div className="pb-0 pt-3 md:pt-7">
                 {userData.genre.map((e) => {
                   return (
                     <p className="style-none inline-flex flex-row flex-wrap items-center text-center text-xs text-white bg-[#26C281] border rounded-xl py-0.75 px-1.5 mb-5 mx-1">
@@ -86,7 +96,14 @@ function ArtistPage() {
           {userData.bio}
         </p>
 
-        {/* SOCIAL MEDIA */}
+        {/* ADD Socials */}
+        {/* <div>
+          {socialsArr.map((social, index) => (
+            <p key={index}>
+              {Object.keys(social)[0]}: {Object.values(social)[0]}
+            </p>
+          ))}
+        </div> */}
 
         <h3 className="text-start pb-10">Media</h3>
         <div className="flex flex-col items-center list-none">
