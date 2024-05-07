@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import userServices from "../../services/UserServices";
 import Spotify from "../../components/mediacomponents/Spotify";
-import Soundcloud from "../../components/mediacomponents/SoundCloud";
 import Youtube from "../../components/mediacomponents/Youtube";
 import { Link } from "react-router-dom";
 
@@ -93,28 +92,36 @@ function ArtistPage() {
         <div className="flex flex-col items-center list-none">
           <li>
             {spotifyMediaList.map((media, index) => {
-              return <Spotify url={media.mediaURL} />;
-              {
-                console.log(media.mediaURL);
+              if (media.mediaURL) {
+                return (
+                  <div key={index}>
+                    <Spotify url={media.mediaURL} />
+                    {console.log(media.mediaURL)}
+                  </div>
+                );
+              } else {
+                return null;
               }
             })}
           </li>
 
           <ul className="">
-            {youtubeMediaList.map((media, index) => (
-              <li key={index} className="py-5">
-                <Youtube url={media.mediaURL} />
-                {console.log(media.mediaURL)}
-              </li>
-            ))}
+            {youtubeMediaList.map((media, index) => {
+              if (media.mediaURL) {
+                return (
+                  <li key={index} className="py-5">
+                    <Youtube url={media.mediaURL} />
+                    {console.log(media.mediaURL)}
+                  </li>
+                );
+              } else {
+                return null;
+              }
+            })}
           </ul>
         </div>
       </div>
-      {/* <li>
-        {soundcloudMediaList.map((media, index) => {
-          return <Soundcloud url={media.mediaURL} />;
-        })}
-      </li> */}
+
       <Link
         to={`/artists/edit/${userData.id}`}
         className="btn-primary-green-bg"
