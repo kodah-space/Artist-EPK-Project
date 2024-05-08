@@ -23,7 +23,7 @@ function CreateArtistPage() {
   const [genreInput, setGenreInput] = useState("");
   const [genres, setGenres] = useState([]);
 
-  const optionsMedia = ["select Option", "youtube", "spotify"];
+  const optionsMedia = ["Select Option", "Youtube", "Spotify"];
   const [instaHandle, setInstaHandle] = useState("");
   const [youtubeSocial, setYoutubeSocial] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -192,95 +192,96 @@ function CreateArtistPage() {
       {/* <h2>Your Artist Profile </h2> */}
 
       <form onSubmit={handleSubmit} className="flex flex-col text-left p-5">
-        <h2 className="px-0">Your Artist Profile </h2>
-        <div className="addArtist-labels">
-          <div className="py-2.5 flex flex-row">
-            <label>
-              Image:
-              <br />
-              <input
-                name="image"
-                type="url"
-                placeholder="enter image-URL"
-                value={image}
-                onChange={handleImage}
-                className="border rounded-sm"
-              />
-            </label>
-          </div>
-          <div className="py-2.5">
-            <label>
-              Name:
-              <br />
-              <textarea
-                name="artistName"
-                type="text"
-                placeholder="enter artist name"
-                value={artistName}
-                onChange={handleArtistName}
-                className="resize-y"
-              />
-            </label>
-          </div>
-          <div className="py-2.5">
-            <label>
-              Bio:
-              <br />
-              <textarea
-                name="bio"
-                type="text"
-                placeholder="enter bio"
-                value={bio}
-                onChange={handleBio}
-                className="resize-y"
-              />
-            </label>
-            {bioErrorMessage && (
-              <p style={{ color: "red" }}>{bioErrorMessage}</p>
-            )}
-          </div>
-          <div className="py-2.5">
-            <label>
-              Shoutout:
-              <br />
-              <textarea
-                name="shoutout"
-                type="text"
-                placeholder="enter a community shoutout"
-                value={shoutout}
-                onChange={handleShoutout}
-                className="resize-y"
-              />
-            </label>
-            {shoutoutErrorMessage && (
-              <p style={{ color: "red" }}>{shoutoutErrorMessage}</p>
-            )}
-          </div>
-          <div className="py-2.5">
-            <label>
-              Location:
-              <br />
-              <input
-                type="text"
-                value={queryLocation}
-                onChange={handleLocationSearch}
-                placeholder="search for location"
-              />
-              {suggestions.length > 0 && (
-                <ul>
-                  {suggestions.map((suggestion) => (
-                    <li
-                      key={suggestion.place_id}
-                      onClick={() => handleLocationSelect(suggestion)}
-                    >
-                      {suggestion.display_name}
-                    </li>
-                  ))}
-                </ul>
+        <div className="column-one">
+          <h2 className="px-0">Your Artist Profile </h2>
+          <div className="addArtist-labels">
+            <div className="py-2.5 flex flex-row">
+              <label>
+                Image:
+                <br />
+                <input
+                  name="image"
+                  type="url"
+                  placeholder="enter image-URL"
+                  value={image}
+                  onChange={handleImage}
+                  className="border rounded-sm"
+                />
+              </label>
+            </div>
+            <div className="py-2.5">
+              <label>
+                Name:
+                <br />
+                <textarea
+                  name="artistName"
+                  type="text"
+                  placeholder="enter artist name"
+                  value={artistName}
+                  onChange={handleArtistName}
+                  className="resize-y"
+                />
+              </label>
+            </div>
+            <div className="py-2.5">
+              <label>
+                Bio:
+                <br />
+                <textarea
+                  name="bio"
+                  type="text"
+                  placeholder="enter bio"
+                  value={bio}
+                  onChange={handleBio}
+                  className="resize-y"
+                />
+              </label>
+              {bioErrorMessage && (
+                <p style={{ color: "#F62459" }}>{bioErrorMessage}</p>
               )}
-            </label>
-          </div>
-          {/* <label>
+            </div>
+            <div className="py-2.5">
+              <label>
+                Shoutout:
+                <br />
+                <textarea
+                  name="shoutout"
+                  type="text"
+                  placeholder="enter a community shoutout"
+                  value={shoutout}
+                  onChange={handleShoutout}
+                  className="resize-y"
+                />
+              </label>
+              {shoutoutErrorMessage && (
+                <p style={{ color: "#F62459" }}>{shoutoutErrorMessage}</p>
+              )}
+            </div>
+            <div className="py-2.5">
+              <label>
+                Location:
+                <br />
+                <input
+                  type="text"
+                  value={queryLocation}
+                  onChange={handleLocationSearch}
+                  placeholder="search for location"
+                />
+                {suggestions.length > 0 && (
+                  <ul>
+                    {suggestions.map((suggestion) => (
+                      <li
+                        key={suggestion.place_id}
+                        onClick={() => handleLocationSelect(suggestion)}
+                      >
+                        {suggestion.display_name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </label>
+            </div>
+            {/* <label>
             Location:
             <input
               name="location"
@@ -290,7 +291,7 @@ function CreateArtistPage() {
               onChange={handleLocation}
             />
           </label> */}
-          {/* <label>
+            {/* <label>
             Type:
             <input
               name="type"
@@ -301,7 +302,7 @@ function CreateArtistPage() {
               readOnly
             />
           </label> */}
-          {/* <div className="py-2.5">
+            {/* <div className="py-2.5">
             <label>
               Genre:
               <br />
@@ -313,35 +314,35 @@ function CreateArtistPage() {
                 onChange={handleGenre}
               />
             </label> */}
-        </div>
-        <div className="py-2.5">
-          <div className="genre-labels">
-            <label>
-              Genres:
-              <input
-                type="text"
-                placeholder="Type and press Enter to add genre"
-                value={genreInput}
-                onChange={handleGenreInputChange}
-                onKeyDown={handleGenreKeyDown}
-              />
-            </label>
-            <ul>
-              {genres.map((g, index) => (
-                <li key={index}>
-                  {g}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveGenre(index)}
-                  >
-                    &times;
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <br />
           </div>
-          {/* <label>
+          <div className="py-2.5">
+            <div className="genre-labels">
+              <label>
+                Genres:
+                <input
+                  type="text"
+                  placeholder="Type and press Enter to add genre"
+                  value={genreInput}
+                  onChange={handleGenreInputChange}
+                  onKeyDown={handleGenreKeyDown}
+                />
+              </label>
+              <ul>
+                {genres.map((g, index) => (
+                  <li key={index}>
+                    {g}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveGenre(index)}
+                    >
+                      &times;
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <br />
+            </div>
+            {/* <label>
             Genre:
             <br />
             <input
@@ -352,84 +353,95 @@ function CreateArtistPage() {
               onChange={handleGenre}
             />
           </label> */}
-          <br />
-          <div className="py-2.5">
-            <label>
-              Instagram profile URL:
-              <br />
-              <textarea
-                name="instaHandle"
-                type="text"
-                placeholder="enter instagram profile url"
-                value={instaHandle}
-                onChange={handleInstaHandle}
-              />
-            </label>
+            <br />
           </div>
-
-          <div className="py-2.5">
-            <label>
-              Youtube Profile URL:
-              <br />
-              <textarea
-                name="youtubeProfileLink"
-                type="text"
-                placeholder="enter youtube profile url"
-                value={youtubeSocial}
-                onChange={handleYoutubeSocial}
-              />
-            </label>
-          </div>
-
-          {/* <h2 className="px-0">Your Media</h2> */}
-          <div className="py-2.5">
-            {/* add media here */}
-
-            {mediaArr.map((media, mediaIndex) => (
-              <div className="py-1.5" key={mediaIndex}>
-                <select
-                  id={`datalist-${mediaIndex}`}
-                  value={media.selectedMedia}
-                  onChange={(e) => handleMediaSelection(e, mediaIndex)}
-                >
-                  {optionsMedia.map((option, optionIndex) => (
-                    <option key={optionIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+          <div className="column-two">
+            <div className="py-2.5">
+              <h2 className="pl-0">Socials</h2>
+              <label>
+                Instagram Profile URL:
                 <br />
-                <input
-                  name={`url-${mediaIndex}`}
-                  type="url"
-                  placeholder="Enter media URL"
-                  value={media.mediaURL || ""}
-                  onChange={(e) => handleMediaChange(e, mediaIndex)}
+                <textarea
+                  name="instaHandle"
+                  type="text"
+                  placeholder="enter instagram profile url"
+                  value={instaHandle}
+                  onChange={handleInstaHandle}
                 />
-              </div>
-            ))}
-          </div>
-          <button
-            type="button"
-            onClick={addMedia}
-            className="btn-primary m-0 py-1.5"
-          >
-            Add More
-          </button>
-          <br />
-          {successMessage && (
-            <div className="success-message mt-15">
-              {successMessage}
-              {newArtistId && (
-                <button onClick={viewProfile} className="btn-primary ml-2">
-                  View Profile
-                </button>
-              )}
+              </label>
             </div>
-          )}
+
+            <div className="py-2.5">
+              <label>
+                Youtube Profile URL:
+                <br />
+                <textarea
+                  name="youtubeProfileLink"
+                  type="text"
+                  placeholder="enter youtube profile url"
+                  value={youtubeSocial}
+                  onChange={handleYoutubeSocial}
+                />
+              </label>
+            </div>
+
+            {/* <h2 className="px-0">Your Media</h2> */}
+            <div className="py-2.5">
+              <h2 className="pl-0">Media</h2>
+
+              {mediaArr.map((media, mediaIndex) => (
+                <div className="py-1.5" key={mediaIndex}>
+                  <select
+                    id={`datalist-${mediaIndex}`}
+                    value={media.selectedMedia}
+                    onChange={(e) => handleMediaSelection(e, mediaIndex)}
+                  >
+                    {optionsMedia.map((option, optionIndex) => (
+                      <option key={optionIndex} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <input
+                    name={`url-${mediaIndex}`}
+                    type="url"
+                    placeholder="enter media URL"
+                    value={media.mediaURL || ""}
+                    onChange={(e) => handleMediaChange(e, mediaIndex)}
+                  />
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={addMedia}
+              className="btn-primary m-0 py-1.5"
+            >
+              Add More
+            </button>
+          </div>
+          <br />
+          <div className="mt-10 flex justify-center">
+            {successMessage && (
+              <div className="success-message mt-15">
+                {successMessage}
+                {newArtistId && (
+                  <div>
+                    <button
+                      onClick={viewProfile}
+                      className="btn-primary flex jsutify-center mt-5 m-auto"
+                    >
+                      View Profile
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
         {buttonVisible && (
-          <button type="submit" className="btn-primary-green-bg mt-10">
+          <button type="submit" className="btn-primary-green-bg mt-10 m-auto">
             Submit Profile
           </button>
         )}

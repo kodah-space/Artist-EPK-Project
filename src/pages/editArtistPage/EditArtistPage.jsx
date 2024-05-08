@@ -221,7 +221,7 @@ function EditArtistPage() {
           />
         </label> */}
         <div className="py-2.5">
-          <label>Your Socials:</label>
+          <h2 className="pl-0">Your Socials</h2>
           <div className="py-2.5">
             <label>
               Instagram Url :
@@ -266,19 +266,21 @@ function EditArtistPage() {
                 />
               </div>
             ))}
-            <button
-              type="button"
-              onClick={addMedia}
-              className="btn-primary m-0 py-1.5"
-            >
-              + more
-            </button>
+            <div className="pt-5">
+              <button
+                type="button"
+                onClick={addMedia}
+                className="btn-primary m-0 py-1.5"
+              >
+                Add more
+              </button>
+            </div>
           </label>
         </div>
 
         <button
           type="submit"
-          className="btn-primary-green-bg mt-10 style-none flex-row flex-wrap items-center text-center"
+          className="btn-primary-green-bg justify-center mt-10 m-auto"
         >
           Save Changes
         </button>
