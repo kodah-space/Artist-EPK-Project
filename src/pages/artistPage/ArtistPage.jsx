@@ -122,7 +122,7 @@ function ArtistPage() {
             <img
               src={userData.imageUrl}
               alt="artist image"
-              className="md:place-items-start p-3 w-2/5"
+              className="md:place-items-start p-3 w-3/5"
             />
           </div>
         </div>
