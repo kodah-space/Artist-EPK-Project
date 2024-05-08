@@ -17,14 +17,15 @@ function CreateArtistPage() {
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [type, setType] = useState("");
-  const optionsSocial = ["Instagram", "Youtube", "Spotify", "tiktok"];
-  const [selectedSocial, setSelectedSocial] = useState(optionsSocial[0]);
-  const [socialsArr, setSocialsArr] = useState([]);
+
   const [shoutout, setShoutout] = useState("");
   // State to manage the input and the list of genres
   const [genreInput, setGenreInput] = useState("");
   const [genres, setGenres] = useState([]);
+
   const optionsMedia = ["select Option", "youtube", "spotify"];
+  const [instaHandle, setInstaHandle] = useState("");
+  const [youtubeSocial, setYoutubeSocial] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [newArtistId, setNewArtistId] = useState(null); // New artist ID state
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ function CreateArtistPage() {
 
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
+  const handleInstaHandle = (e) => setInstaHandle(e.target.value);
+  const handleYoutubeSocial = (e) => setYoutubeSocial(e.target.value);
   const handleBio = (e) => {
     const valueBio = e.target.value;
 
@@ -58,48 +61,6 @@ function CreateArtistPage() {
     setQueryLocation(suggestion.display_name);
     setActive(false);
     clearSuggestions();
-  };
-
-  //Handle social Network
-  const addSocial = () => {
-    const newSocial = { [optionsSocial[0]]: "" };
-
-    setSocialsArr([...socialsArr, newSocial]);
-    console.log(`1.addSocial, value of the array: `, socialsArr);
-  };
-
-  const handleSocialSelection = (e, i) => {
-    setSelectedSocial(e.target.value);
-
-    // const updatedSocialsArr = [...socialsArr];
-    // const updatedObject = { ...updatedSocialsArr[i] };
-    // const currentKey = Object.keys(updatedObject)[0];
-
-    // delete updatedObject[currentKey];
-    // updatedObject[e.target.value] = "";
-    // updatedSocialsArr[i] = updatedObject;
-
-    // setSocialsArr(updatedSocialsArr);
-    setSocialsArr((prev) => {
-      prev[i] = { [e.target.value]: "" };
-      return prev;
-    });
-  };
-
-  const handleSocialChange = (e, i) => {
-    console.log(` 3.handleSocialChange : `, socialsArr);
-    // const updatedSocials = [...socialsArr];
-    // updatedSocials[i] = {
-    //   ...updatedSocials[i],
-    //   [selectedSocial]: e.target.value,
-    // };
-    // setSocialsArr(updatedSocials);
-
-    setSocialsArr((prev) => {
-      prev[i] = { [Object.keys(prev[i])[0]]: e.target.value };
-      return prev;
-    });
-    console.log(` 4.handleSocialChange : `, socialsArr);
   };
 
   const handleShoutout = (e) => {
@@ -158,6 +119,13 @@ function CreateArtistPage() {
     e.preventDefault();
     const finalImage = image || defaultImageUrl;
 
+    const socialsArr = [
+      {
+        instagramUrl: instaHandle,
+        spotifyUrl: youtubeSocial,
+      },
+    ];
+
     userServices
       .createNewUser({
         artistName: artistName,
@@ -201,14 +169,12 @@ function CreateArtistPage() {
     setBio("");
     setLocation("");
     setType("");
-    setSelectedSocial("");
-    setSocialsArr([{}]);
     setShoutout("");
     setGenres([]);
     // setSelectedMedia("");
-    // setMediaArr([{}]);
+    setMediaArr([{}]);
   };
-  console.log(socialsArr);
+
   console.log(mediaArr);
   const viewProfile = () => {
     if (newArtistId) {
@@ -394,44 +360,31 @@ function CreateArtistPage() {
           <br />
           <div className="py-2.5">
             <label>
-              Add Socials:
-              {socialsArr.map((social, index) => {
-                return (
-                  <div className="py-1.5">
-                    <select
-                      id={`datalist-${index}`}
-                      value={social.selectedSocial}
-                      onChange={(e) => handleSocialSelection(e, index)}
-                    >
-                      {optionsSocial.map((option, optionIndex) => (
-                        <option key={optionIndex} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                    <br />
-                    <input
-                      name={selectedSocial}
-                      type="url"
-                      placeholder="enter account url"
-                      key={index}
-                      value={social[selectedSocial] || ""}
-                      onChange={(e) => handleSocialChange(e, index)}
-                    />
-                  </div>
-                );
-              })}
+              Instagram profile URL:
               <br />
-              <button
-                type="button"
-                onClick={addSocial}
-                className="btn-primary m-0 py-1.5"
-              >
-                + more
-              </button>
+              <textarea
+                name="instaHandle"
+                type="text"
+                placeholder="enter instagram profile url"
+                value={instaHandle}
+                onChange={handleInstaHandle}
+              />
             </label>
           </div>
-          <br />
+
+          <div className="py-2.5">
+            <label>
+              Youtube Profile URL:
+              <br />
+              <textarea
+                name="youtubeProfileLink"
+                type="text"
+                placeholder="enter youtube profile url"
+                value={youtubeSocial}
+                onChange={handleYoutubeSocial}
+              />
+            </label>
+          </div>
 
           {/* <h2 className="px-0">Your Media</h2> */}
           <div className="py-2.5">
