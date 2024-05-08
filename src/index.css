@@ -5,25 +5,31 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-white text-black tracking-wide py-2 px-4 rounded-3xl border border-black hover:text-[#26C281] hover:border-[#26C281] m-2;
+    @apply bg-white text-black text-sm tracking-wide py-2 px-4 rounded-3xl border border-black hover:text-[#26C281] hover:border-[#26C281] m-2;
   }
 }
 
 @layer components {
   .btn-primary-green {
-    @apply bg-white text-[#26C281] tracking-wide py-2 px-4 rounded-3xl border border-[#26C281] hover:text-white hover:bg-[#26C281] m-2;
+    @apply bg-white text-[#26C281] text-sm tracking-wide py-2 px-4 rounded-3xl border border-[#26C281] hover:text-white hover:bg-[#26C281] m-2;
   }
 }
 
 @layer components {
   .btn-primary-green-bg {
-    @apply bg-[#26C281] text-white  tracking-wide py-2 px-4 rounded-3xl border hover:text-[#26C281] hover:bg-white hover:border-[#26C281] m-2;
+    @apply bg-[#26C281] text-white text-sm tracking-wide py-2 px-4 rounded-3xl border hover:text-[#26C281] hover:bg-white hover:border-[#26C281] m-2;
   }
 }
 
 @layer components {
-  .h2 {
-    @apply text-black font-[Unbounded-Regular] text-3xl p-2;
+  h2 {
+    @apply text-left text-black font-[Unbounded-Regular] text-2xl p-4;
+  }
+}
+
+@layer components {
+  h3 {
+    @apply text-black font-[Unbounded-Regular] text-2xl p-4;
   }
 }
 
@@ -32,13 +38,40 @@
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  padding: 0 0 50px 0;
 }
 
-.logo-line {
-  font-family: Unbounded-Medium;
+.profile-container input,
+textarea {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 6px 8px;
+  width: 100%;
 }
 
-.test-text-two {
-  font-family: Linux-Libertine;
-  font-size: 20px;
+.profile-container input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #26c281;
+  border-radius: 4px;
 }
+
+.modifyArtistPage-container input,
+textarea {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 6px 8px;
+  width: 100%;
+  color: gray;
+}
+
+.modifyArtistPage-container input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #26c281;
+  border-radius: 4px;
+}
+
+/* border rounded-sm focus:ring-[#26C281] focus:border-[#26C281]" */
+
+/* border rounded-sm focus:ring-[#26C281] focus:border-[#26C281]" */
