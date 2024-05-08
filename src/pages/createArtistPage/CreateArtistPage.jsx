@@ -188,7 +188,7 @@ function CreateArtistPage() {
     }
   };
   return (
-    <div className="profile-container">
+    <div className="profile-container md:mx-60">
       {/* <h2>Your Artist Profile </h2> */}
 
       <form onSubmit={handleSubmit} className="flex flex-col text-left p-5">
