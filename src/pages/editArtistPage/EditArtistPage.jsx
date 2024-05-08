@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 
 function EditArtistPage() {
   const { artistId } = useParams();
+  const handleInstaHandle = (e) => setInstaHandle(e.target.value);
+  const handleYoutubeSocial = (e) => setYoutubeSocial(e.target.value);
 
   console.log(`param from the URL: `, artistId);
 
@@ -21,8 +23,6 @@ function EditArtistPage() {
 
   const [mediaInfo, setMediaInfo] = useState([]);
 
-  const [socialsArr, setSocialsArr] = useState([]);
-
   useEffect(() => {
     fetchArtistInfo(artistId);
     fetchMedia(artistId);
@@ -36,11 +36,8 @@ function EditArtistPage() {
       })
       .then((resp) => {
         // const socials = resp.data.socials;
+
         const socials = resp.data.socials;
-        for (const key in socials) {
-          const newSocial = { [key]: socials[key] };
-          setSocialsArr([...socialsArr, newSocial]);
-        }
       })
       .catch((error) => {
         console.error("Error fetching artist information:", error);
@@ -100,23 +97,6 @@ function EditArtistPage() {
         "Maximum character limit exceeded (200 characters)"
       );
     }
-  };
-
-  const handleSocialSelection = (e) => {
-    setArtistInfo({ ...artistInfo, socialsArr: e.target.value });
-  };
-
-  const handleSocialChange = (e) => {
-    setArtistInfo({ ...artistInfo, socialsArr: e.target.value });
-  };
-
-  const addSocial = () => {
-    const newSocial = { [optionsSocial[0]]: "" };
-
-    setArtistInfo({
-      ...artistInfo,
-      socialsArr: [...artistInfo.socialsArr, newSocial],
-    });
   };
 
   const handleGenre = (e) => {
@@ -241,35 +221,27 @@ function EditArtistPage() {
           />
         </label> */}
         <div className="py-2.5">
-          <label>
-            Your Socials:
-            {Object.keys(artistInfo.socials).map((socialKey, index) => (
-              <div key={index}>
-                <select
-                  value={socialKey}
-                  onChange={(e) => handleSocialSelection(e, index)}
-                >
-                  {optionsSocial.map((option, optionIndex) => (
-                    <option key={optionIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="url"
-                  value={artistInfo.socials[socialKey]}
-                  onChange={(e) => handleSocialChange(e, index)}
-                />
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addSocial}
-              className="btn-primary m-0 py-1.5"
-            >
-              + more
-            </button>
-          </label>
+          <label>Your Socials:</label>
+          <div className="py-2.5">
+            <label>
+              Instagram Url :
+              <input
+                type="text"
+                value={artistInfo.socials.instagramUrl}
+                onChange={handleInstaHandle}
+              />
+            </label>
+          </div>
+          <div className="py-2.5">
+            <label>
+              Youtube Url :
+              <input
+                type="text"
+                value={artistInfo.socials.youtubeUrl}
+                onChange={handleInstaHandle}
+              />
+            </label>
+          </div>
         </div>
 
         <div className="py-1.5 my-5">
