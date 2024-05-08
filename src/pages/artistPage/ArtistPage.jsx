@@ -84,7 +84,39 @@ function ArtistPage() {
                   );
                 })}
               </div>
+              {/* ADD Socials */}
+              <div className="flex flex-col items-center p-3r">
+                {userData.socials.instagramUrl && (
+                  <a
+                    href={userData.socials.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Instagram"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                      alt="Instagram"
+                      style={{ width: "32px", height: "32px" }} // Adjust as needed
+                    />
+                  </a>
+                )}
+                {userData.socials.spotifyUrl && (
+                  <a
+                    href={userData.socials.spotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Spotify"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+                      alt="Spotify"
+                      style={{ width: "32px", height: "32px" }} // Adjust as needed
+                    />
+                  </a>
+                )}
+              </div>
             </div>
+
             <img
               src={userData.imageUrl}
               alt="artist image"
@@ -95,15 +127,6 @@ function ArtistPage() {
         <p className="font-[Linux-Libertine] text-lg p-5 md:p-5">
           {userData.bio}
         </p>
-
-        {/* ADD Socials */}
-        {/* <div>
-          {socialsArr.map((social, index) => (
-            <p key={index}>
-              {Object.keys(social)[0]}: {Object.values(social)[0]}
-            </p>
-          ))}
-        </div> */}
 
         <h3 className="text-start pb-10">Media</h3>
         <div className="flex flex-col items-center list-none">
