@@ -145,7 +145,7 @@ function EditArtistPage() {
   };
 
   return (
-    <div className="modifyArtistPage-container p-5 text-left">
+    <div className="modifyArtistPage-container p-5 text-left md:mx-60">
       <h2 className="px-0">Edit Artist Profile</h2>
       <form onSubmit={handleSubmit}>
         <div className="py-2.5">
