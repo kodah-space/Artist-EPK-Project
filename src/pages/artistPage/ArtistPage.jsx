@@ -85,13 +85,14 @@ function ArtistPage() {
                 })}
               </div>
               {/* ADD Socials */}
-              <div className="flex flex-col items-center p-3r">
+              <div className="flex flex-row justify-center p-3r">
                 {userData.socials.instagramUrl && (
                   <a
                     href={userData.socials.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Instagram"
+                    className="px-1"
                   >
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
@@ -106,6 +107,7 @@ function ArtistPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Spotify"
+                    className="px-1"
                   >
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
@@ -120,7 +122,7 @@ function ArtistPage() {
             <img
               src={userData.imageUrl}
               alt="artist image"
-              className="md:place-items-start p-3"
+              className="md:place-items-start p-3 w-2/5"
             />
           </div>
         </div>

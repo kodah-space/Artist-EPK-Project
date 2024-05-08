@@ -30,9 +30,15 @@ function CreateArtistPage() {
   const [newArtistId, setNewArtistId] = useState(null); // New artist ID state
   const navigate = useNavigate();
   const [mediaArr, setMediaArr] = useState([{ mediaType: "", mediaURL: "" }]);
+  const [buttonVisible, setButtonVisible] = useState(true);
 
   console.log(mediaArr);
 
+  const handleButtonClick = () => {
+    // Hide the button when it's clicked
+    setButtonVisible(false);
+    handleSubmit();
+  };
   const handleImage = (e) => setImage(e.target.value);
   const handleArtistName = (e) => setArtistName(e.target.value);
   const handleInstaHandle = (e) => setInstaHandle(e.target.value);
@@ -184,17 +190,6 @@ function CreateArtistPage() {
   return (
     <div className="profile-container">
       {/* <h2>Your Artist Profile </h2> */}
-
-      {successMessage && (
-        <div className="success-message">
-          {successMessage}
-          {newArtistId && (
-            <button onClick={viewProfile} className="btn-primary ml-2">
-              View Profile
-            </button>
-          )}
-        </div>
-      )}
 
       <form onSubmit={handleSubmit} className="flex flex-col text-left p-5">
         <h2 className="px-0">Your Artist Profile </h2>
@@ -422,10 +417,22 @@ function CreateArtistPage() {
             Add More
           </button>
           <br />
+          {successMessage && (
+            <div className="success-message mt-15">
+              {successMessage}
+              {newArtistId && (
+                <button onClick={viewProfile} className="btn-primary ml-2">
+                  View Profile
+                </button>
+              )}
+            </div>
+          )}
         </div>
-        <button type="submit" className="btn-primary-green-bg mt-10">
-          Submit Profile
-        </button>
+        {buttonVisible && (
+          <button type="submit" className="btn-primary-green-bg mt-10">
+            Submit Profile
+          </button>
+        )}
       </form>
     </div>
   );
