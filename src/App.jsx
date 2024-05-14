@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import HomePage from "./pages/homePage/HomePage";
 import ContactPage from "./pages/contactPage/ContactPage";
-import AboutPage from "./pages/aboutPage/AboutPage";
+import AboutPage from "../pages/aboutPage/AboutPage";
 import Artists from "./components/artists/Artists";
 import ArtistPage from "./pages/artistPage/ArtistPage";
 import CreateArtistPage from "./pages/createArtistPage/CreateArtistPage";
